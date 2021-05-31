@@ -310,7 +310,7 @@ router.get('/detail/:PID/review', function (req, res) {
       res.render('write_review', {
         title: "리뷰 작성",
         product_deal: rows[rows.length - 1],
-        user_id: user_id
+        user_id: user_id,
         name: req.session.user.name
       });
       connection.release();
