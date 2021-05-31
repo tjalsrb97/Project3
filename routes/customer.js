@@ -387,7 +387,9 @@ router.post('/cart/pay', function (req, res) {
       "delete from cart_info where C_PID=?;" +
       "update product_info set stock = ? where PID = ?;";
     for (var i = 0; i < datas.length; i++) {
-      connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i]);
+      connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function(err, rrr) {
+        console.log(err);
+      });
     }
     //res.redirect('/customer/mypage');
     res.send("<script>alert('결제 완료!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
