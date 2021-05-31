@@ -41,6 +41,7 @@ a:hover {
   padding-right: 2%;
   padding-left: 2%;
   margin: 0px;
+  border-spacing: 15px;
 }
 
 .tab_select {
@@ -65,13 +66,18 @@ a:hover {
   border-spacing: 30px;
 }
 
-.mypage_button {
+.mypage_button_select {
   background-color: rgb(255, 195, 65);
   color: white;
   width: 40px;
   height: 30px;
 }
-
+.mypage_button {
+  background-color: rgb(187, 166, 45);
+  color: white;
+  width: 40px;
+  height: 30px;
+}
 select {
   width: 100px;
   /* 원하는 너비설정 */
@@ -189,19 +195,19 @@ li {
 }
 
 #slide li:nth-child(1) {
-  background: url('/gallery1.png') no-repeat 90% 90%;
+  background: url('/gallery1.png') no-repeat 80% 80%;
 }
 
 #slide li:nth-child(2) {
-  background: url('/gallery3.png') no-repeat 90% 90%;
+  background: url('/gallery3.png') no-repeat 80% 80%;
 }
 
 #slide li:nth-child(3) {
-  background: url('/gallery2.png') no-repeat 90% 90%;
+  background: url('/gallery2.png') no-repeat 80% 80%;
 }
 
 #slide li:nth-child(4) {
-  background: url('/gallery4.png') no-repeat 90% 90%;
+  background: url('/gallery4.png') no-repeat 80% 80%;
 }
 
 #slide input {

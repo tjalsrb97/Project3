@@ -46,7 +46,7 @@
             for (var i=0; i<notices.length; i++){
                 var oneItem = notices[i];
         %>
-            <tr style="cursor:pointer;" onClick="location.href='/customer/notice_detail/<%=oneItem.Ntime%>' " onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
+            <tr style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black;" onClick="location.href='/customer/notice_detail/<%=oneItem.Ntime%>' " onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                 <td>
                     <%=i+1%>
                 </td>

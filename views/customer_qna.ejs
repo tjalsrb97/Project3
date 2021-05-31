@@ -48,7 +48,7 @@
             for (var i=0; i<row.length; i++){
                 var oneItem = row[i];
         %>
-        <tr style="cursor:pointer;" onClick="location.href='/customer/qna_detail/<%=oneItem.Qtime%>' "
+        <tr style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black;" onClick="location.href='/customer/qna_detail/<%=oneItem.Qtime%>' "
             onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
             <td>
                 <%=i+1%>
