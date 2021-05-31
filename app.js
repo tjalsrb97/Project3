@@ -100,11 +100,9 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.route(/^\/admin(?:\/(.*))?$/).all(function (req, res, next) {
     var path = req.params[0];
-    console.log("좆됐다 ㅋㅋ");
     console.log(req.session.user);
     if (req.session.user) {
         if (req.session.user.Ucase == 1) {
-            console.log("좆됐다 ㅋㅋ");
             next();
         } else
            return res.redirect('/');

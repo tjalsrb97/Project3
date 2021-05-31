@@ -15,7 +15,7 @@
     </div>
     
 <div style="text-align: center">
-    <table class="tab_table">
+    <table class="tab_table" style="border-spacing: 5px">
         <tr>
             <td width=50><a href="/customer/tab">전체 메뉴</a></td>
             <td width=50><a href="/customer/tab/1">새우장</a></td>
@@ -24,7 +24,7 @@
             <td width=50><a href="/customer/tab/4">김치</a></td>
             <td width=50>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td width=50><a href="/customer/notice">공지사항</a></td>
-            <td width=50><a href="/customer/qna">질문답변</a></td>
+            <td width=50 class="tab_select"><a href="/customer/qna">질문답변</a></td>
         </tr>
     </table>
     <img src="/main_border.png" style="width: 90%; height: 1%; overflow: hidden;">
@@ -40,19 +40,13 @@
         <tr>
             <td>작성자</td>
             <td>
-                관리자
+                <%=row.Rname%>
             </td>
         </tr>
         <tr>
             <td>작성일</td>
             <td>
                 <%=row.Qtime%>
-            </td>
-        </tr>
-        <tr>
-            <td>제목</td>
-            <td>
-                <%=row.Qtitle%>
             </td>
         </tr>
         <tr>

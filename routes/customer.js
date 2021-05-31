@@ -679,7 +679,7 @@ router.get('/qna_detail/:Qtime', function (req, res, next) {
     res.redirect('/');
   }
   pool.getConnection(function (err, connection) {
-    var userInfo_sql = 'SELECT * FROM qna_info WHERE Qtime = ?';
+    var userInfo_sql = 'select * from qna_info as q join (select RID, Rname from register_info) as r on q.Q_RID=RID WHERE Qtime = ?';
     var ismyQna_sql = 'SELECT * FROM qna_info WHERE Qtime = ? and Q_RID = ?';
     var hitup_sql = 'UPDATE qna_info SET Qhit=Qhit+1 WHERE Qtime = ?';
     connection.query(userInfo_sql, [Qtime], function (err, row) {
