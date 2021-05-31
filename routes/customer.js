@@ -373,16 +373,19 @@ router.post('/cart/pay', function (req, res) {
     Arr_Stock[i] = Arr_Stock[i] - Arr_Dquantity[i];
 
   }
+  console.log(req.body);
+  var Daddress = req.body.Address;
+  var Dphone = req.body.Phone;
   console.log(pay_price);
   Rest_cash = Arr_Cash - pay_price;
   var datas = [];
 
   for (var i = 0; i < Arr_D_PID.length; i++) {
-    datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
+    datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
     console.log(datas[i]);
   }
   pool.getConnection(function (err, connection) {
-    var InsertdealandUpdateCashandDeletecart_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate) values(?,?,?,?,?,?,?);" +
+    var InsertdealandUpdateCashandDeletecart_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone) values(?,?,?,?,?,?,?,?,?);" +
       "update register_info set cash = ? where RID = ?;" +
       "delete from cart_info where C_PID=?;" +
       "update product_info set stock = ? where PID = ?;";
@@ -409,6 +412,7 @@ router.post('/cart/add', upload.single('image'), function (req, res) {
   var datas = [now, req.session.user.id, PID, Cquantity];
   console.log(Cquantity);
   console.log(req.body);
+  console.log("1");
   if (Rest_stock > 0) {
     if (Cquantity > 0) {
       pool.getConnection(function (err, connection) {
@@ -450,11 +454,13 @@ router.get('/cart', upload.single('image'), function (req, res, next) {
     var Priceinfo_sql = "select Price, Salerate from cart_info as c, product_info as p where p.PID = c.C_PID and c.C_RID=?";
     var Quantityinfo_sql = "select Cquantity from cart_info as c, product_info as p where p.PID = c.C_PID and c.C_RID=?";
     var Stockinfo_sql = "select Stock from cart_info as c, product_info as p where p.PID = c.C_PID and c.C_RID=?";
-    var GetCash_sql = "select Cash from register_info where RID=?";
+    var GetCash_sql = "select Cash, Address, Phone from register_info where RID=?";
     var Priceinfo = [];
     var Quantityinfo = [];
     var Stockinfo = [];
     var Cash = 0;
+    var Address;
+    var Phone;
     var Pay_price = 0;
     console.log(user_id);
     connection.query(Priceinfo_sql, user_id, function (err, price) {
@@ -474,7 +480,10 @@ router.get('/cart', upload.single('image'), function (req, res, next) {
     });
     connection.query(GetCash_sql, user_id, function (err, cash) {
       if (err) console.error("err : " + err);
+      console.log(cash);
       Cash = cash[0].Cash;
+      Address = cash[0].Address;
+      Phone = cash[0].Phone;
       // console.log(cash[0].Cash);
     });
     connection.query(Cartinfo_sql, [user_id], function (err, cart) {
@@ -483,6 +492,8 @@ router.get('/cart', upload.single('image'), function (req, res, next) {
         title: "장바구니",
         cart: cart,
         cash: Cash,
+        address: Address,
+        phone: Phone,
         price: Priceinfo,
         quantity: Quantityinfo,
         stock: Stockinfo,
