@@ -44,9 +44,25 @@
             </td>
         </tr>
         <tr>
+            <td>작성내용</td>
+            <td>
+                <%=notice.Ntext%>
+            </td>
+        </tr>
+        <tr>
             <td>작성일</td>
             <td>
                 <%=notice.Ntime%>
+            </td>
+        </tr>
+        <tr>
+            <td>이미지</td>
+            <td>
+                <% if ((notice.Nimage == '') || (notice.Nimage == null)) { %>
+                    &nbsp;
+                <% } else { %>
+                <img src = '/<%=notice.Nimage%>' width=150>
+                <% } %>
             </td>
         </tr>
         <tr>
