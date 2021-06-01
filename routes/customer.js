@@ -211,16 +211,17 @@ router.post('/detail/:PID/buy', upload.single('image'), function (req, res) {
   var Rest_cash = Number(req.body.Cash) - Number(req.body.Price) * Number(req.body.Dquantity);
   var Rest_stock = Number(req.body.Stock) - Number(req.body.Dquantity);
   var Stock = req.body.Stock;
+  var Dmoney = Number(req.body.Price) * Number(req.body.Dquantity);
   console.log(Stock);
   console.log(Rest_stock);
   //console.log(Rest_cash);
 
-  var datas = [DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, DphoneNum, Number(Rest_cash), user_id, Number(Rest_stock), D_PID];
+  var datas = [DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, DphoneNum, Dmoney, Number(Rest_cash), user_id, Number(Rest_stock), D_PID];
   if(Rest_cash >= 0){
     if(Dquantity > 0){
       if(Rest_stock >= 0){
         pool.getConnection(function (err, connection) {
-          var InsertdealandUpdateCash_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone) values(?,?,?,?,?,?,?,?,?);" +
+          var InsertdealandUpdateCash_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone, Dmoney) values(?,?,?,?,?,?,?,?,?,?);" +
             "update register_info set cash = ? where RID = ?;" + 
             "update product_info set stock = ? where PID = ?;";
           connection.query(InsertdealandUpdateCash_multisql, datas, function (err, result) {
@@ -358,47 +359,54 @@ router.post('/cart/pay', function (req, res) {
   }
   //console.log(Arr_Cash);
   // var Arr_Ctime = [];
-  for (var i = 0; i < req.body.D_PID.length; i++) {
-    Arr_Ctime[i] = date_to_str(new Date(Arr_Ctime[i]));
-  }
-  var Arr_DID = [];
-  for (var i = 0; i < req.body.D_PID.length; i++) {
-    Arr_DID[i] = P_RID + "_" + Arr_D_PID[i] + "_" + Arr_Ctime[i];
-  }
-  var Dtime = now;
-  var Dstate = '결제완료';
-  var Rest_cash = 0;
-  var pay_price = 0;
-  for (var i = 0; i < Arr_D_PID.length; i++) {
-    pay_price += Number(Arr_Dquantity[i] * Arr_Price[i]);
-    Arr_Stock[i] = Arr_Stock[i] - Arr_Dquantity[i];
-
-  }
   console.log(req.body);
-  var Daddress = req.body.Address;
-  var Dphone = req.body.Phone;
-  console.log(pay_price);
-  Rest_cash = Arr_Cash - pay_price;
-  var datas = [];
-
-  for (var i = 0; i < Arr_D_PID.length; i++) {
-    datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
-    console.log(datas[i]);
-  }
-  pool.getConnection(function (err, connection) {
-    var InsertdealandUpdateCashandDeletecart_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone) values(?,?,?,?,?,?,?,?,?);" +
-      "update register_info set cash = ? where RID = ?;" +
-      "delete from cart_info where C_PID=?;" +
-      "update product_info set stock = ? where PID = ?;";
-    for (var i = 0; i < datas.length; i++) {
-      connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function(err, rrr) {
-        console.log(err);
-      });
+  if(req.body.Pay_price != 0){
+    for (var i = 0; i < req.body.D_PID.length; i++) {
+      Arr_Ctime[i] = date_to_str(new Date(Arr_Ctime[i]));
     }
-    //res.redirect('/customer/mypage');
-    res.send("<script>alert('결제 완료!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
-    connection.release();
-  });
+    var Arr_DID = [];
+    for (var i = 0; i < req.body.D_PID.length; i++) {
+      Arr_DID[i] = P_RID + "_" + Arr_D_PID[i] + "_" + Arr_Ctime[i];
+    }
+    var Dtime = now;
+    var Dstate = '결제완료';
+    var Rest_cash = 0;
+    var pay_price = 0;
+    for (var i = 0; i < Arr_D_PID.length; i++) {
+      pay_price += Number(Arr_Dquantity[i] * Arr_Price[i]);
+      Arr_Stock[i] = Arr_Stock[i] - Arr_Dquantity[i];
+  
+    }
+    var Daddress = req.body.Address;
+    var Dphone = req.body.Phone;
+    var Dmoney = pay_price;
+    console.log(pay_price);
+    Rest_cash = Arr_Cash - pay_price;
+    var datas = [];
+    console.log(pay_price);
+    for (var i = 0; i < Arr_D_PID.length; i++) {
+      datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Dmoney, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
+      console.log(datas[i]);
+    }
+    pool.getConnection(function (err, connection) {
+      var InsertdealandUpdateCashandDeletecart_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone, Dmoney) values(?,?,?,?,?,?,?,?,?,?);" +
+        "update register_info set cash = ? where RID = ?;" +
+        "delete from cart_info where C_PID=?;" +
+        "update product_info set stock = ? where PID = ?;";
+      for (var i = 0; i < datas.length; i++) {
+        connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function(err, rrr) {
+          console.log(err);
+        });
+      }
+      //res.redirect('/customer/mypage');
+      res.send("<script>alert('결제 완료!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
+      connection.release();
+    });
+  }
+  else{
+    res.send("<script>alert('장바구니 항목이 없습니다!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
+  }
+  
 });
 
 router.post('/cart/add', upload.single('image'), function (req, res) {
