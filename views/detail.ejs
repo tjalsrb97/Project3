@@ -27,9 +27,27 @@
 
 <body>
   <div>
+    <% if (name != "비회원") { %>
+    <%-header2%>
+    <% } else { %>
     <%-header%>
+    <% } %>
   </div>
-
+  <div style="text-align: center; margin-bottom:0">
+    <table class="tab_table" style="border-spacing: 5px">
+      <tr>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab">전체 메뉴</a></td>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/1">새우장</a></td>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/2">게장</a></td>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/3">계란장</a></td>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/4">김치</a></td>
+        <td width=50 class="tab_noselect"></td>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/notice">공지사항</a></td>
+        <td width=50 class="tab_noselect"><a class="norma" href="/customer/qna">질문답변</a></td>
+      </tr>
+    </table>
+    <img src="/main_border.png" style="width: 90%; height: 1%; overflow: hidden;">
+  </div>
   <div style="text-align: center;">
     <table align="center" style="margin-left: auto; margin-right: auto;" width='1000px'>
       <tr>
