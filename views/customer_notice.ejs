@@ -4,6 +4,7 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <script type="text/javascript">
     var newURL = window.location.href;
@@ -18,24 +19,25 @@
         <%-header%>
         <% } %>
     </div>
-    <div style="text-align: center">
-        <table class="tab_table">
+    <div style="text-align: center; margin-bottom:0">
+        <table class="tab_table" style="border-spacing: 5px">
             <tr>
-                <td width=50><a href="/customer/tab">전체 메뉴</a></td>
-                <td width=50><a href="/customer/tab/1">새우장</a></td>
-                <td width=50><a href="/customer/tab/2">게장</a></td>
-                <td width=50><a href="/customer/tab/3">계란장</a></td>
-                <td width=50><a href="/customer/tab/4">김치</a></td>
-                <td width=50>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td width=50><a href="/customer/notice">공지사항</a></td>
-                <td width=50><a href="/customer/qna">질문답변</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab">전체 메뉴</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/1">새우장</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/2">게장</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/3">계란장</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/4">김치</a></td>
+                <td width=50 class="tab_noselect"></td>
+                <td width=50 class="tab_select"><a class="norma" href="/customer/notice">공지사항</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/qna">질문답변</a></td>
             </tr>
         </table>
         <img src="/main_border.png" style="width: 90%; height: 1%; overflow: hidden;">
     </div>
     <br><br>
+<div style="text-align: center; padding-left: 10%; padding-right: 10%">
     <h2 style="color: rgb(228, 216, 55); text-align: center;">공지사항</h2>
-    <table class="tab_table">
+    <table class="table" style="width:100%; text-align: center; padding-left: 5%; margin:0 0 0 0; margin-right:0px">
         <tr>
             <td>번호</td>
             <td>제목</td>
@@ -47,7 +49,8 @@
             for (var i=0; i<notices.length; i++){
                 var oneItem = notices[i];
         %>
-            <tr style="cursor:pointer;" onClick="location.href='/customer/notice_detail/<%=oneItem.Ntime%>' " onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
+        <tr class="sel_tr" style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black;" onClick="location.href='/customer/notice_detail/<%=oneItem.Ntime%>' "
+            onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                 <td>
                     <%=i+1%>
                 </td>
@@ -68,7 +71,7 @@
         }
         %>
     </table>
-
+</div>
 </body>
 
 </html>

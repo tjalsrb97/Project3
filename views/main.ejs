@@ -46,8 +46,8 @@
         <%-header%>
         <% } %>
     </div>
-    <div style="text-align: center">
-        <table class="tab_table">
+    <div style="text-align: center; margin-bottom: 0px">
+        <table class="tab_table" style="border-spacing: 5px">
             <tr>
                 <% if (page == 0) { %>
                 <td width=50 class="tab_select">
@@ -93,10 +93,10 @@
         <input type="radio" name="pos" id="pos3">
         <input type="radio" name="pos" id="pos4">
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li><img src = "/gallery1.png" width=100% height=auto></li>
+            <li><img src = "/gallery3.png" width=100% height=auto></li>
+            <li><img src = "/gallery2.png" width=100% height=auto></li>
+            <li><img src = "/gallery4.png" width=100% height=auto></li>
         </ul>
         <p class="pos">
             <label for="pos1"></label>
@@ -107,7 +107,7 @@
     </div>
     <br><br>
     <div style="text-align: center; margin: 0;">
-        <table class="tab_table">
+        <table class="tab_table" style="border-spacing: 5px">
             <tr>
                 <% if (page == 0) { %>
                 <td style="font-size: 23px;">전체 상품</td>
@@ -145,6 +145,7 @@
     {
         var oneItem = rows[0][i];
         var recom = 0;
+        oneItem.Price = oneItem.Price * (100 - oneItem.Salerate) / 100;
         if (i % 3== 0) {
 %>
             <tr>
@@ -158,7 +159,7 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                     if (rows[4][j].PID == oneItem.PID)
@@ -166,10 +167,10 @@
                 }
                 if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 <%      } else {    %>
@@ -178,7 +179,7 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                         if (rows[4][j].PID == oneItem.PID)
@@ -186,10 +187,10 @@
                     }
                     if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 </td>
@@ -224,7 +225,7 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                         if (rows[4][j].PID == oneItem.PID)
@@ -232,10 +233,10 @@
                                     }
                                     if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 <%      } else {    %>
@@ -244,7 +245,7 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                             if (rows[4][j].PID == oneItem.PID)
@@ -252,10 +253,10 @@
                                         }
                                         if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 </td>
@@ -290,7 +291,7 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                         if (rows[4][j].PID == oneItem.PID)
@@ -298,10 +299,10 @@
                                     }
                                     if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 <%      } else {    %>
@@ -310,7 +311,7 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                             if (rows[4][j].PID == oneItem.PID)
@@ -318,10 +319,10 @@
                                         }
                                         if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 </td>
@@ -356,7 +357,7 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                     if (rows[4][j].PID == oneItem.PID)
@@ -364,10 +365,10 @@
                 }
                 if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 <%      } else {    %>
@@ -376,7 +377,7 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=oneItem.Price%>원
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                         if (rows[4][j].PID == oneItem.PID)
@@ -384,16 +385,16 @@
                     }
                     if (recom == 1) { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 0)"><img src="/redHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } else { %>
                     <a href="javascript:formSubmit(<%=oneItem.PID%>, 1)"><img src="/grayHeart.png" width=13px
-                            height=13px>(<%=oneItem.Recommend%>)</a>
+                            height=13px></a>(<%=oneItem.Recommend%>)
                     <% } %>
                 </td>
                 </td>
                 <%
         }
-        if (i % 4 == 2) {
+        if (i % 3 == 2) {
 %>
             </tr>
             <%
@@ -404,4 +405,7 @@
     </div>
 </body>
 
+<div>
+    <%-footer%>
+</div>
 </html>

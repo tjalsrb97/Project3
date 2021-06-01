@@ -81,10 +81,10 @@ router.get('/tab', function (req, res, next) {
       "SELECT p.PID as PID, r.rec_RID as RID FROM product_info as p join (SELECT * FROM recommend_info WHERE rec_RID = ?) as r on p.PID = r.rec_PID;";
       connection.query(ProductList_sql, [user_id, user_id], function (err, rows) {
       if (err) console.error("err : " + err);
-      console
+      console.log("내가보고싶은건: ", rows[3]);
       // console.log("rows : " + JSON.stringify(rows))
       res.render('main', {
-        title: '당골찬',
+        title: '단골찬',
         page: page,
         rows: rows,
         name: req.session.user.name
@@ -692,7 +692,7 @@ router.get('/qna_detail/:Qtime', function (req, res, next) {
     res.redirect('/');
   }
   pool.getConnection(function (err, connection) {
-    var userInfo_sql = 'SELECT * FROM qna_info WHERE Qtime = ?';
+    var userInfo_sql = 'select * from qna_info as q join (select RID, Rname from register_info) as r on q.Q_RID=RID WHERE Qtime = ?';
     var ismyQna_sql = 'SELECT * FROM qna_info WHERE Qtime = ? and Q_RID = ?';
     var hitup_sql = 'UPDATE qna_info SET Qhit=Qhit+1 WHERE Qtime = ?';
     connection.query(userInfo_sql, [Qtime], function (err, row) {
