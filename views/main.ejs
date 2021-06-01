@@ -145,6 +145,7 @@
     {
         var oneItem = rows[0][i];
         var recom = 0;
+        var originPrice = oneItem.Price;
         oneItem.Price = oneItem.Price * (100 - oneItem.Salerate) / 100;
         if (i % 3== 0) {
 %>
@@ -159,7 +160,12 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                     if (rows[4][j].PID == oneItem.PID)
@@ -179,7 +185,12 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                         if (rows[4][j].PID == oneItem.PID)
@@ -212,6 +223,8 @@
     {
         var oneItem = rows[1][i];
         var recom = 0;
+        var originPrice = oneItem.Price;
+        oneItem.Price = oneItem.Price * (100 - oneItem.Salerate) / 100;
         if (i % 3== 0) {
 %>
             <tr>
@@ -225,7 +238,12 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                         if (rows[4][j].PID == oneItem.PID)
@@ -245,7 +263,12 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                             if (rows[4][j].PID == oneItem.PID)
@@ -278,6 +301,8 @@
     {
         var oneItem = rows[2][i];
         var recom = 0;
+        var originPrice = oneItem.Price;
+        oneItem.Price = oneItem.Price * (100 - oneItem.Salerate) / 100;
         if (i % 3== 0) {
 %>
             <tr>
@@ -291,7 +316,12 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                         if (rows[4][j].PID == oneItem.PID)
@@ -311,7 +341,12 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                                             if (rows[4][j].PID == oneItem.PID)
@@ -344,6 +379,8 @@
     {
         var oneItem = rows[3][i];
         var recom = 0;
+        var originPrice = oneItem.Price;
+        oneItem.Price = oneItem.Price * (100 - oneItem.Salerate) / 100;
         if (i % 3== 0) {
 %>
             <tr>
@@ -357,7 +394,12 @@
                     <a href="/customer/detail/<%=oneItem.PID%>">
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                     if (rows[4][j].PID == oneItem.PID)
@@ -377,7 +419,12 @@
                         <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
-                        <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% if (originPrice == oneItem.Price) { %>
+                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <% } else { %>
+                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
                         if (rows[4][j].PID == oneItem.PID)

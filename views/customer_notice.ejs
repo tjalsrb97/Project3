@@ -38,7 +38,7 @@
 <div style="text-align: center; padding-left: 10%; padding-right: 10%">
     <h2 style="color: rgb(228, 216, 55); text-align: center;">공지사항</h2>
     <table class="table" style="width:100%; text-align: center; padding-left: 5%; margin:0 0 0 0; margin-right:0px">
-        <tr>
+        <tr style="text-align:left">
             <td>번호</td>
             <td>제목</td>
             <td>작성자</td>
@@ -49,7 +49,7 @@
             for (var i=0; i<notices.length; i++){
                 var oneItem = notices[i];
         %>
-        <tr class="sel_tr" style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black;" onClick="location.href='/customer/notice_detail/<%=oneItem.Ntime%>' "
+        <tr class="sel_tr" style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black; text-align:left" onClick="location.href='/customer/notice_detail/<%=oneItem.Ntime%>' "
             onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                 <td>
                     <%=i+1%>

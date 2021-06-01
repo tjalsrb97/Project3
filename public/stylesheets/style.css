@@ -47,7 +47,9 @@ a:hover {
 .empty_div {
   width: 100%;
 }
-
+.empty_table {
+  width: 100%;
+}
 .tab_table {
   color: rgb(0, 0, 0);
   font-size: 19px;
@@ -87,6 +89,7 @@ a:hover {
   padding-left: 2%;
   margin: 0px;
   border-spacing: 30px;
+  border-radius: 15px;
 }
 
 .mypage_button_select {
