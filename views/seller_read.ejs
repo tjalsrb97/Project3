@@ -63,86 +63,92 @@
             </ul>
         </nav>
         </nav>
-        
+
         <!-- Page Content Holder -->
         <div id="content">
             <div style="text-align: center;">
-                <table align="center"  style="margin-left: auto; margin-right: auto;border:px;" width='1000px'>
-                  <tr>
-                    <td rowspan="6" align="left"><img style="border: 1px solid#e9e9e9;" src="/<%=row.Pimage%>" width=600px height=400px /></td>
-                    <td width=300px align="left" style="color:darkgoldenrod">
-                      <h1 style="font-size: 30px"><%=row.Pname%></h1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">
-                      <% var saleprice = 0;
+                <table align="center" style="margin-left: auto; margin-right: auto;border:px;" width='1000px'>
+                    <tr>
+                        <td rowspan="6" align="left"><img style="border: 1px solid#e9e9e9;" src="/<%=row.Pimage%>" width=600px height=400px /></td>
+                        <td width=300px align="left" style="color:darkgoldenrod">
+                            <h1 style="font-size: 30px">
+                                <%=row.Pname%>
+                            </h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <% var saleprice = 0;
                       if(row.Salerate == 0) { %>
-                      <h1><%=Number(row.Price).toLocaleString('en')%>원</h1>
-                      <% } else{ 
+                                <h1>
+                                    <%=Number(row.Price).toLocaleString('en')%>원</h1>
+                                <% } else{ 
                           saleprice = (100 - row.Salerate) * row.Price / 100;%>
-                      <div style="font-size: 40px; color: #e9e9e9;">
-                        <strike><%=Number(row.Price).toLocaleString('en')%>원</strike></div>
-                      <div style="font-size: 40px"><strong style="color: red;"><%=row.Salerate%>%</strong>
-                        <strong><%=Number(saleprice).toLocaleString('en')%>원</strong></div>
-                      <% } %>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <hr style="border-style:dotted">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">
-                      <div style="font-size: 20px">원산지: 국내산</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">
-                      <div style="font-size: 20px">출시일: <%=row.Ptime%></div>
-                    </td>
-                  </tr>
-                  <tr>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <hr>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left" colspan=" 2">
-                      <strong style="font-size:20px;">상세 설명</strong>
-                      <p><%-row.Pdesc%>
-                    </td>
-                  </tr>
-                   
+                                    <div style="font-size: 40px; color: #e9e9e9;">
+                                        <strike><%=Number(row.Price).toLocaleString('en')%>원</strike></div>
+                                    <div style="font-size: 40px"><strong style="color: red;"><%=row.Salerate%>%</strong>
+                                        <strong><%=Number(saleprice).toLocaleString('en')%>원</strong></div>
+                                    <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <hr style="border-style:dotted">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div style="font-size: 20px">원산지: 국내산</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div style="font-size: 20px">출시일:
+                                <%=row.Ptime%>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" colspan=" 2">
+                            <strong style="font-size:20px;">상세 설명</strong>
+                            <p>
+                                <%-row.Pdesc%>
+                        </td>
+                    </tr>
+
                 </table>
             </div>
         </div>
 
     </div>
-    <form action="/admin/seller_update/<%=row.PID%>" method="get" style="position: absolute; right:150px; bottom:-200px;">
+
+    <form action="/admin/seller_update/<%=row.PID%>" method="get" style="position: absolute; right:140px">
         <button type='submit' class="btn btn-primary" style="margin-bottom: 40px;">상품 수정</button></form>
-    <form action="/admin/seller_read/<%=row.PID%>" method="post" style="position: absolute; right:20px; bottom:-200px;">
+    <form action="/admin/seller_read/<%=row.PID%>" method="post" style="position: absolute; right:10px">
         <button type='submit' class="btn btn-primary" style="margin-bottom: 40px;">상품 삭제</button></form>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });
-        });
-    </script>
 </body>
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sidebarCollapse').on('click', function() {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+    });
+</script>
 
 </html>
-
