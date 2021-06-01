@@ -239,7 +239,6 @@ router.post('/detail/:PID/buy', upload.single('image'), function (req, res) {
   } else {
     res.send("<script>alert('돈을 충전하세요!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
   }
-
 });
 
 router.get('/detail/:PID/buy', function (req, res) {
@@ -282,10 +281,11 @@ router.post('/detail/:PID/review', upload.single('image'), function (req, res, n
   var R_DID = req.body.R_DID;
   var Review = req.body.Review;
   var Star = req.body.Star;
-  var Rimage = req.file.path;
+  console.log(Star);
+  var Rimage = req.file.filename;
   var Rtime = now;
-  console.log(req.body);
-  var datas = [R_RID, R_PID, R_DID, Review, Star, Rtime, Rimage];
+  console.log("리뷰 내용:", req.body);
+  var datas = [R_RID, R_PID, R_DID, Review, Star.length, Rtime, Rimage];
   pool.getConnection(function (err, connection) {
     var InsertReview_sql = "insert into review_info(R_RID, R_PID, R_DID, Review, Star, Rtime, Rimage) values(?,?,?,?,?,?,?)";
     connection.query(InsertReview_sql, datas, function (err, review) {
@@ -310,6 +310,7 @@ router.get('/detail/:PID/review', function (req, res) {
       res.render('write_review', {
         title: "리뷰 작성",
         product_deal: rows[rows.length - 1],
+        date: beauty_date_to_str(new Date(rows[0].Ptime)),
         user_id: user_id,
         name: req.session.user.name
       });
@@ -481,6 +482,7 @@ router.get('/cart', upload.single('image'), function (req, res, next) {
     connection.query(GetCash_sql, user_id, function (err, cash) {
       if (err) console.error("err : " + err);
       console.log(cash);
+      console.log(Number(Number(cash[0].Cash)).toLocaleString('en'));
       Cash = cash[0].Cash;
       Address = cash[0].Address;
       Phone = cash[0].Phone;
