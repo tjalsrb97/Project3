@@ -83,10 +83,11 @@
                     <div class="wraper">
                         <div class = "recList">
                             <% for (var k = 0; k < rows[4].length; k++) { %>
-                                <li><p><a href = "/customer/detail/<%=rows[4][k].rec_PID%>"><%=rows[4][k].Pname%></a></p></li>
+                                <li style="text-align: left; "><p><a href = "/customer/detail/<%=rows[4][k].rec_PID%>"><%=rows[4][k].Pname%></a></p></li>
+                                <br>
                             <% } %>
                         </div>
-                        나의 추천상품<br>
+                        <a style="color: black; text-decoration: underline solid black;">나의 추천상품<br></a>
                         <%= rows[4].length %>개
                     </div>
                 </td>

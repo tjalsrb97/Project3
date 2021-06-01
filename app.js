@@ -91,6 +91,11 @@ global.headerFormat3 = fs.readFileSync(
     "utf8"
 );
 global.header3 = ejs.render(headerFormat3);
+global.footerFormat = fs.readFileSync(
+    "./views/footer.html",
+    "utf8"
+);
+global.footer = ejs.render(footerFormat);
 app.use('/upload', express.static(path.join(__dirname + '/upload')));
 
 app.use('/index', indexRouter);
