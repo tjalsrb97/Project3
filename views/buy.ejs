@@ -145,6 +145,9 @@
     function add_quantity() {
         var quantity = document.getElementById('Dquantity').value;
         update_quantity = Number(quantity) + 1;
+        if (update_quantity < 0) {
+            update_quantity = 0;
+        }
         document.getElementById('Dquantity').value = update_quantity;
         document.getElementById('Qquantity').value = update_quantity;
     }
@@ -152,6 +155,9 @@
     function sub_quantity() {
         var quantity = document.getElementById('Dquantity').value;
         update_quantity = Number(quantity) - 1;
+        if (update_quantity < 0) {
+            update_quantity = 0;
+        }
         document.getElementById('Dquantity').value = update_quantity;
         document.getElementById('Qquantity').value = update_quantity;
     }
