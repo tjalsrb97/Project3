@@ -41,9 +41,11 @@
         cursor: pointer;
         background-color: #f0f0f0;
     }
+
     .rating .rate_radio:checked+label {
         background-color: #ff8;
     }
+
     .wrap {
         max-width: 480px;
         margin: 0 auto;
@@ -53,11 +55,13 @@
         padding: 20px;
         box-sizing: border-box;
     }
+
     .reviewform textarea {
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
     }
+
     .rating .rate_radio {
         position: relative;
         display: inline-block;
@@ -70,6 +74,7 @@
         vertical-align: top;
         display: none;
     }
+
     .rating .rate_radio+label {
         position: relative;
         display: inline-block;
@@ -83,9 +88,11 @@
         cursor: pointer;
         background-color: #f0f0f0;
     }
+
     .rating .rate_radio:checked+label {
         background-color: #ff8;
     }
+
     .warning_msg {
         display: none;
         position: relative;
@@ -152,8 +159,8 @@
     <div style="text-align: center;">
         <table align="center" style="margin-left: auto; margin-right: auto;" width='1000px'>
             <tr>
-                <td rowspan="6" align "center"><img style="border: 1px solid#e9e9e9;" src="/<%=product_deal.Pimage%>"
-                        width=500px height=400px /></td>
+                <td rowspan="6" align="left"><img style="border: 1px solid#e9e9e9;" src="/<%=product_deal.Pimage%>"
+                        width=650px height=400px /></td>
                 <td width=300px align="left" style="color:darkgoldenrod">
                     <h1 style="font-size: 30px"><%=product_deal.Pname%></h1>
                 </td>
@@ -192,8 +199,12 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2">
+                    <br><br><br>
+                </td>
+            </tr>
+            <tr>
                 <td align="left" colspan=" 2">
-                    <strong style="font-size:20px;">상세 설명</strong>
                     <p><%-product_deal.Pdesc%></p>
                 </td>
             </tr>
