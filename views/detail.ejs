@@ -4,6 +4,25 @@
 <head>
   <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <meta charset="utf-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+    type="text/css" />
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/style5.css' />
+
+  <script src="/javascripts/jquery-3.6.0.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+  </script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+    integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+  </script>
 </head>
 
 <body>
@@ -22,9 +41,15 @@
       </tr>
       <tr>
         <td align="left">
-          <div style="font-size: 40px; color: #e9e9e9;"><strike><%=product.Price%>원</strike></div>
+          <% if(product.Salerate == 0) { %>
+          <h1><%=Number(product.Price).toLocaleString('en')%>원</h1>
+          <% } %>
+          <% if(product.Salerate != 0) { %>
+          <div style="font-size: 40px; color: #e9e9e9;">
+            <strike><%=Number(product.Price).toLocaleString('en')%>원</strike></div>
           <div style="font-size: 40px"><strong style="color: red;"><%=product.Salerate%>%</strong>
-            <strong><%=saleprice%>원</strong></div>
+            <strong><%=Number(saleprice).toLocaleString('en')%>원</strong></div>
+          <% } %>
         </td>
       </tr>
       <tr>
@@ -55,6 +80,18 @@
       </tr>
       <tr>
         <td align="left" colspan=" 2">
+          <strong style="font-size:20px;">상세 설명</strong>
+          <p><%-product.Pdesc%>
+        </td>
+      </tr>
+      <br><br>
+      <tr>
+        <td colspan="2">
+          <hr>
+        </td>
+      </tr>
+      <tr>
+        <td align="left" colspan=" 2">
           <strong style="font-size:20px;">교환 및 반품</strong>
           <p> - 식품 특성상 제품 하자를 제외한 개봉 후 반품 및 환불은 불가합니다.</p>
           <p> - 고객님의 단순 변심으로 인한 교환 및 반품은 어려우며, 발송 중 고객님의 부재로 인한 미수령 후 반송 시 반품은 불가합니다.</p>
@@ -77,14 +114,18 @@
           <hr>
           <br>
           <p><%=review.Rname%></p>
-          <p><%=review.Star%><strong style="font-size:1px;"><%=review.Rtime%></strong></p>
+          <p><strong style="font-size:1px;"><%=review.Rtime%></strong></p>
+          <% 
+          for(var j = 0; j < review.Star; j++) { %>
+          ★
+          <% } %>
           <br>
           <p><%=review.Review%></p>
           <br>
           <hr>
         </td>
         <td>
-          <img style="border: 1px solid#e9e9e9;" src="/<%=review.Rimage%>" width=100px height=100px />
+          <img style="border: 1px solid#e9e9e9;" src="/<%=review.Rimage%>" width=150px height=150px />
         </td>
         <br>
       </tr>
@@ -93,7 +134,8 @@
       %>
       <hr>
     </table>
-    <button onclick="window.location.href = '/customer/detail/<%=product.PID%>/review'">작성</button>
+    <button class="btn btn-primary"
+      onclick="window.location.href = '/customer/detail/<%=product.PID%>/review'">작성</button>
   </div>
 
 </body>
