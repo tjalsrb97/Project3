@@ -162,6 +162,8 @@ select {
   position: absolute;
   width: 200px;
   padding: 0;
+  padding-left: 15px;
+  padding-top: 15px;
   visibility: hidden;
   background-color: lightgray;
   text-align: center;
