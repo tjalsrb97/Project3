@@ -4,6 +4,25 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+        type="text/css" />
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style5.css' />
+
+    <script src="/javascripts/jquery-3.6.0.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
@@ -14,63 +33,83 @@
         <%-header%>
         <% } %>
     </div>
-    <h1><%= title %></h1>
+    <h1><strong>장바구니</strong></h1>
 
-
-    <p><%=cash%></p>
-    <table border="1">
-        <tr>
-            <td></td>
-            <td>이미지</td>
-            <td>상품명(옵션)</td>
-            <td>판매가</td>
-            <td>회원 할인</td>
-            <td>수량</td>
-            <td>삭제</td>
-        </tr>
-        <%
-        for(var i=0; i<cart.length; i++)
-        {
-            var option = cart[i];
-            pay_price += Number(option.Cquantity) * Number(option.Price * (100 - option.Salerate) / 100);
-        %>
-        <tr>
-            <td><%= i+1%></td>
-            <td><img src="/<%=option.Pimage%>" width='200px' height='200px' /></td>
-            <td><%=option.Pname%></td>
-            <td><%=option.Price%></td>
-            <td><%=option.Price * (100 - option.Salerate) / 100 %></td>
-            <td><%=option.Cquantity%></td>
-            <td>
-                <form action="/customer/cart/delete" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="PID" id="PID" value="<%=option.PID%>" />
-                    <button type="submit">삭제</button>
-                </form>
-            </td>
-        </tr>
-        <%
-        }
-        %>
-    </table>
-    <form action="/customer/cart/pay" method="post">
-        <%
+    <div style="text-align: center;">
+        <table class="table" style="margin-left: auto; margin-right: auto;" width='1000px'>
+            <tr>
+                <td></td>
+                <td><strong>이미지</strong></td>
+                <td><strong>상품명(옵션)</strong></td>
+                <td><strong>판매가</strong></td>
+                <td><strong>회원 할인</strong></td>
+                <td><strong>수량</strong></td>
+                <td><strong>삭제</strong></td>
+            </tr>
+            <%
             for(var i=0; i<cart.length; i++)
             {
                 var option = cart[i];
+                pay_price += Number(option.Cquantity) * Number(option.Price * (100 - option.Salerate) / 100);
             %>
-        <input type="hidden" name="D_PID" id="D_PID" value="<%=option.PID%>" />
-        <input type="hidden" name="Dquantity" id="Dquantity" value="<%=option.Cquantity%>" />
-        <input type="hidden" name="Ctime" id="Ctime" value="<%=option.Ctime%>" />
-        <input type="hidden" name="Stock" id="Stock" value="<%=option.Stock%>" />
-        <input type="hidden" name="Price" id="Price" value="<%=option.Price * (100 - option.Salerate) / 100%>" />
-        <%
-        }
-        %>
-        <input type="hidden" name="Cash" id="Cash" value="<%=cash%>" />
-        <input type="hidden" name="P_RID" id="P_RID" value="<%=user_id%>" />
-        <input type="hidden" name="S_RID" id="S_RID" value="admin" />
-        <button type="submit"><%=pay_price%>원 결제</button>
-    </form>
+            <tr>
+                <td><%= i+1%></td>
+                <td><img src="/<%=option.Pimage%>" width='100px' height='100px' /></td>
+                <td style="font-size: 20px; text-align: left;"><%=option.Pname%></td>
+                <td style="font-size: 20px;"><%=Number(option.Price).toLocaleString('en')%>원 </td>
+                <td style="font-size: 20px;">
+                    <strong><%=Number(option.Price * (100 - option.Salerate) / 100).toLocaleString('en')%>원</strong>
+                </td>
+                <td style="font-size: 20px;"><%=option.Cquantity%></td>
+                <td>
+                    <form action="/customer/cart/delete" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="PID" id="PID" value="<%=option.PID%>" />
+                        <button type="submit" class="btn btn-primary">삭제</button>
+                    </form>
+                </td>
+            </tr>
+            <%
+            }
+            %>
+            <tr>
+                <td colspan="7" style="text-align: right;">
+                    <div style="font-size:20px">
+                        현재 돈: <strong><%=Number(cash).toLocaleString('en')%>원</strong>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7">
+                    <div style="text-align: right;">
+                        <form action="/customer/cart/pay" method="post">
+                            <%
+                                for(var i=0; i<cart.length; i++)
+                                {
+                                    var option = cart[i];
+                                %>
+                            <input type="hidden" name="D_PID" id="D_PID" value="<%=option.PID%>" />
+                            <input type="hidden" name="Dquantity" id="Dquantity" value="<%=option.Cquantity%>" />
+                            <input type="hidden" name="Ctime" id="Ctime" value="<%=option.Ctime%>" />
+                            <input type="hidden" name="Stock" id="Stock" value="<%=option.Stock%>" />
+                            <input type="hidden" name="Price" id="Price"
+                                value="<%=option.Price * (100 - option.Salerate) / 100%>" />
+                            <%
+                            }
+                            %>
+                            <input type="hidden" name="Cash" id="Cash" value="<%=cash%>" />
+                            <input type="hidden" name="Address" id="Address" value="<%=address%>" />
+                            <input type="hidden" name="Phone" id="Phone" value="<%=phone%>" />
+                            <input type="hidden" name="P_RID" id="P_RID" value="<%=user_id%>" />
+                            <input type="hidden" name="S_RID" id="S_RID" value="admin" />
+                            <input type="hidden" name="Pay_price" id="Pay_price" value="<%=pay_price%>" />
+                            <button type="submit" class="btn btn-primary"><%=Number(pay_price).toLocaleString('en')%>원
+                                결제</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 
 </html>

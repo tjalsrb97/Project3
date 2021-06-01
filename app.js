@@ -91,6 +91,11 @@ global.headerFormat3 = fs.readFileSync(
     "utf8"
 );
 global.header3 = ejs.render(headerFormat3);
+global.footerFormat = fs.readFileSync(
+    "./views/footer.html",
+    "utf8"
+);
+global.footer = ejs.render(footerFormat);
 app.use('/upload', express.static(path.join(__dirname + '/upload')));
 
 app.use('/index', indexRouter);
@@ -100,7 +105,6 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.route(/^\/admin(?:\/(.*))?$/).all(function(req, res, next) {
     var path = req.params[0];
-    console.log("좆됐다 ㅋㅋ");
     console.log(req.session.user);
     if (req.session.user) {
         if (req.session.user.Ucase == "1")
