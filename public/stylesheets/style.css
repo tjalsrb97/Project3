@@ -72,9 +72,11 @@ a:hover {
 .empty_div {
   width: 100%;
 }
+
 .empty_table {
   width: 100%;
 }
+
 .tab_table {
   color: rgb(0, 0, 0);
   font-size: 19px;
@@ -162,6 +164,8 @@ select {
   position: absolute;
   width: 200px;
   padding: 0;
+  padding-left: 15px;
+  padding-top: 15px;
   visibility: hidden;
   background-color: lightgray;
   text-align: center;

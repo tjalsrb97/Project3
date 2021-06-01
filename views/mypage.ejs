@@ -108,7 +108,7 @@
         <div style="text-align: center;">
             <table class="table" style="padding-left: 10%; padding-right: 10%; font-size: 15px" id="buy_list">
                 <tr
-                    style="border-bottom: 1px solid black; border-top: 1px solid black; padding-top: 15px; padding-bottom: 15px; text-align:left" >
+                    style="border-bottom: 1px solid black; border-top: 1px solid black; padding-top: 15px; padding-bottom: 15px; text-align:left">
                     <th width=10px>
                         사진
                     </th>
@@ -145,9 +145,9 @@
         total += oneItem.Dmoney;
             %>
                 <tr class="sel_tr"
-                style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black; text-align:left"
-                onClick="location.href='/customer/detail/<%=oneItem.D_PID%>' "
-                onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
+                    style="cursor:pointer; border-bottom: 1px solid black; border-top: 1px solid black; text-align:left"
+                    onClick="location.href='/customer/detail/<%=oneItem.D_PID%>' "
+                    onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                     <td style="border-bottom: 1px solid rgba(211, 211, 211, 0.755); width: 15px">
                         <a class="norma" class="norma" href="/customer/detail/<%=oneItem.PID%>"><img
                                 src="/<%=oneItem.Pimage%>" width=80 height=80></a>
@@ -308,7 +308,11 @@
                 <tr>
                     <td>ID</td>
                     <td>
+                        <% if (rows[0][0].Rname == "비회원") { %>
+                        <p>비회원</p>
+                        <% } else { %>
                         <p><%=rows[0][0].RID%></p>
+                        <% } %>
                     </td>
                 </tr>
                 <tr>
@@ -349,4 +353,5 @@
         </form>
     </div>
 </body>
+
 </html>

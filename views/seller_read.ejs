@@ -4,18 +4,25 @@
 <head>
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+        type="text/css" />
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/style5.css' />
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+        type="text/css" />
 
     <script src="/javascripts/jquery-3.6.0.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
     <%-headerFormat3 %>
 
 </head>
@@ -33,7 +40,8 @@
 
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seller</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Seller</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
                             <a href="/admin/seller_list/1">상품 목록</a>
@@ -44,7 +52,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administrator</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Administrator</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
                             <a href="/admin/client_list/1">고객 관리</a>
@@ -69,7 +78,8 @@
             <div style="text-align: center;">
                 <table align="center" style="margin-left: auto; margin-right: auto;border:px;" width='1000px'>
                     <tr>
-                        <td rowspan="6" align="left"><img style="border: 1px solid#e9e9e9;" src="/<%=row.Pimage%>" width=600px height=400px /></td>
+                        <td rowspan="6" align="left"><img style="border: 1px solid#e9e9e9;" src="/<%=row.Pimage%>"
+                                width=650px height=400px /></td>
                         <td width=300px align="left" style="color:darkgoldenrod">
                             <h1 style="font-size: 30px">
                                 <%=row.Pname%>
@@ -80,15 +90,15 @@
                         <td align="left">
                             <% var saleprice = 0;
                       if(row.Salerate == 0) { %>
-                                <h1>
-                                    <%=Number(row.Price).toLocaleString('en')%>원</h1>
-                                <% } else{ 
+                            <h1>
+                                <%=Number(row.Price).toLocaleString('en')%>원</h1>
+                            <% } else{ 
                           saleprice = (100 - row.Salerate) * row.Price / 100;%>
-                                    <div style="font-size: 40px; color: #e9e9e9;">
-                                        <strike><%=Number(row.Price).toLocaleString('en')%>원</strike></div>
-                                    <div style="font-size: 40px"><strong style="color: red;"><%=row.Salerate%>%</strong>
-                                        <strong><%=Number(saleprice).toLocaleString('en')%>원</strong></div>
-                                    <% } %>
+                            <div style="font-size: 40px; color: #e9e9e9;">
+                                <strike><%=Number(row.Price).toLocaleString('en')%>원</strike></div>
+                            <div style="font-size: 40px"><strong style="color: red;"><%=row.Salerate%>%</strong>
+                                <strong><%=Number(saleprice).toLocaleString('en')%>원</strong></div>
+                            <% } %>
                         </td>
                     </tr>
                     <tr>
@@ -136,15 +146,21 @@
 
 </body>
 <!-- jQuery CDN - Slim version (=without AJAX) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
 <!-- Popper.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
+</script>
 <!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+    integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+</script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#sidebarCollapse').on('click', function() {
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
         });

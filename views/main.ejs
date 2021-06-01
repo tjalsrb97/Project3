@@ -37,7 +37,6 @@
             form.method = "post";
             form.submit();
         };
-
     </script>
     <div>
         <% if (name != "비회원") { %>
@@ -93,10 +92,10 @@
         <input type="radio" name="pos" id="pos3">
         <input type="radio" name="pos" id="pos4">
         <ul>
-            <li><img src = "/gallery1.png" width=100% height=auto></li>
-            <li><img src = "/gallery3.png" width=100% height=auto></li>
-            <li><img src = "/gallery2.png" width=100% height=auto></li>
-            <li><img src = "/gallery4.png" width=100% height=auto></li>
+            <li><img src="/gallery1.png" width=100% height=auto></li>
+            <li><img src="/gallery3.png" width=100% height=auto></li>
+            <li><img src="/gallery2.png" width=100% height=auto></li>
+            <li><img src="/gallery4.png" width=100% height=auto></li>
         </ul>
         <p class="pos">
             <label for="pos1"></label>
@@ -158,13 +157,14 @@
 %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -182,14 +182,15 @@
                 <%      } else {    %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>" style="color: rgb(126, 126, 126);">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -236,13 +237,14 @@
                     %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -260,14 +262,15 @@
                 <%      } else {    %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>" style="color: rgb(126, 126, 126);">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -314,13 +317,14 @@
                     %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -338,14 +342,15 @@
                 <%      } else {    %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>" style="color: rgb(126, 126, 126);">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -392,13 +397,14 @@
 %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" /><br><br>
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -416,14 +422,15 @@
                 <%      } else {    %>
                 <td width=45>
                     <a href="/customer/detail/<%=oneItem.PID%>" style="color: rgb(126, 126, 126);">
-                        <img src="/<%=oneItem.Pimage%>" height="190" width="190" style="opacity:0.3;" /><br><br>
+                        <img src="/<%=oneItem.Pimage%>" height="126" width="190" style="opacity:0.3;" /><br><br>
                         품절
                         <%=oneItem.Pname%><br>
                         <% if (originPrice == oneItem.Price) { %>
-                            <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h3><%=Number(originPrice).toLocaleString('en')%>원</h3>
                         <% } else { %>
-                            <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3><h4 style="color: red"><%=oneItem.Salerate%>%</h4>
-                            <%=Number(oneItem.Price).toLocaleString('en')%>원
+                        <h3 style="text-decoration: line-through;"><%=Number(originPrice).toLocaleString('en')%>원</h3>
+                        <h4 style="color: red"><%=oneItem.Salerate%>%</h4>
+                        <%=Number(oneItem.Price).toLocaleString('en')%>원
                         <% } %>
                     </a>
                     <% for (var j=0; j < rows[4].length; j++) {
@@ -455,4 +462,5 @@
 <div>
     <%-footer%>
 </div>
+
 </html>
