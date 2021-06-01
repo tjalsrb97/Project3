@@ -11,26 +11,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/style5.css' />
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
+    <script src="/javascripts/jquery-3.6.0.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <%-headerFormat3 %>
 
 </head>
 
 <body>
-    <h2>
-        <font color="black">
-            <%= title %>
-        </font>
-    </h2>
-    <div class="wrapper">
+
+    <div class="wrapper" style="position: relative;">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>단골찬</h3>
-                <h3>관리자 메뉴</h3>
+                <h2>
+                    <%= title %>
+                </h2>
             </div>
-    
+
             <ul class="list-unstyled components">
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seller</a>
@@ -44,8 +44,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Administrator</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administrator</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
                             <a href="/admin/client_list/1">고객 관리</a>
@@ -64,60 +63,92 @@
             </ul>
         </nav>
         </nav>
-    
+
         <!-- Page Content Holder -->
         <div id="content">
-            <table style = "margin-left:auto;margin-right:auto">
-            <tr><td><img src='/<%=row.Pimage%>' alt="no image" width="300" /></td></tr>
-            <tr><td><p style="color:black;font-size: 30px;font-weight: bold"><%=row.Pname%></p></td></tr>
-                    <% var current_price=0; 
-                    current_price=row.Price * (100 - row.Salerate) / 100;
-                    if (row.Salerate == 0) {%>
-                        <tr><td><p style="color:black">판매가격: <span style="font-size: 30px;font-weight: bold;"><%=Number(row.Price).toLocaleString('en')%></span>원
-            </p></td></tr>
-            <tr><td><p style="color:black">할인가격: <span style="font-size: 30px;font-weight: bold;">원가</span>
-            </p></td></tr>
-            <%} else { %>
-                <tr><td><p style="color:black">판매가격: <del style="color:gray"><span style="font-size: 30px;font-weight: bold;color:gray"><%=Number(row.Price).toLocaleString('en')%></span></del>원
-            </p></td></tr>
-            <tr><td><p style="color:black">할인가격: <span style="font-size: 30px;font-weight: bold;"><%=Number(current_price).toLocaleString('en')%></span>원
-            </p></td></tr>
-            <%}
-             if (row.Stock> 5) { %>
-                <tr><td><p style="color:black">잔여수량: <span style="font-size: 30px;font-weight: bold;"><%=row.Stock%></span>
-                        <% } else { %>
-                            <tr><td><p style="color:black">잔여수량: <span style="font-size: 30px;font-weight: bold;color:red;"><%=row.Stock%></span>
+            <div style="text-align: center;">
+                <table align="center" style="margin-left: auto; margin-right: auto;border:px;" width='1000px'>
+                    <tr>
+                        <td rowspan="6" align="left"><img style="border: 1px solid#e9e9e9;" src="/<%=row.Pimage%>" width=600px height=400px /></td>
+                        <td width=300px align="left" style="color:darkgoldenrod">
+                            <h1 style="font-size: 30px">
+                                <%=row.Pname%>
+                            </h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <% var saleprice = 0;
+                      if(row.Salerate == 0) { %>
+                                <h1>
+                                    <%=Number(row.Price).toLocaleString('en')%>원</h1>
+                                <% } else{ 
+                          saleprice = (100 - row.Salerate) * row.Price / 100;%>
+                                    <div style="font-size: 40px; color: #e9e9e9;">
+                                        <strike><%=Number(row.Price).toLocaleString('en')%>원</strike></div>
+                                    <div style="font-size: 40px"><strong style="color: red;"><%=row.Salerate%>%</strong>
+                                        <strong><%=Number(saleprice).toLocaleString('en')%>원</strong></div>
                                     <% } %>
-                            </p></td></tr>
-                            <tr><td><p style="color:black">설명: <%-row.Pdesc%></p></td></tr>
-                            <tr><td><p style="color:black">원산지: 국내산</p></td></tr>
-                                <tr><td><p style="color:black">출시일: <%=row.Ptime%>
-                                </p></td></tr>
-                                <tr><td><form action="/admin/seller_update/<%=row.PID%>" method="get" style="display:inline"><button
-                                    type='submit'>상품
-                                    수정</button></form></td>
-                            <td><form action="/admin/seller_read/<%=row.PID%>" method="post" style="display:inline"><button
-                                    type='submit'>상품
-                                    삭제</button></form></td></tr>
-            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <hr style="border-style:dotted">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div style="font-size: 20px">원산지: 국내산</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div style="font-size: 20px">출시일:
+                                <%=row.Ptime%>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" colspan=" 2">
+                            <strong style="font-size:20px;">상세 설명</strong>
+                            <p>
+                                <%-row.Pdesc%>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
         </div>
+
     </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <form action="/admin/seller_update/<%=row.PID%>" method="get" style="position: absolute; right:140px">
+        <button type='submit' class="btn btn-primary" style="margin-bottom: 40px;">상품 수정</button></form>
+    <form action="/admin/seller_read/<%=row.PID%>" method="post" style="position: absolute; right:10px">
+        <button type='submit' class="btn btn-primary" style="margin-bottom: 40px;">상품 삭제</button></form>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });
-        });
-    </script>
 </body>
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sidebarCollapse').on('click', function() {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+    });
+</script>
 
 </html>
