@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='bootstrap-3.3.2-dist/css/bootstrap.min.css'
+</head>
+<script type="text/javascript">
+    var newURL = window.location.href;
+</script>
+
+<body>
+    <div>
+
+        <% if (name != "비회원") { %>
+        <%-header2%>
+        <% } else { %>
+        <%-header%>
+        <% } %>
+
+    </div>
+    
+<div style="text-align: center">
+    <table class="tab_table">
+        <tr>
+            <td width=50><a href="/customer/tab">전체 메뉴</a></td>
+            <td width=50><a href="/customer/tab/1">새우장</a></td>
+            <td width=50><a href="/customer/tab/2">게장</a></td>
+            <td width=50><a href="/customer/tab/3">계란장</a></td>
+            <td width=50><a href="/customer/tab/4">김치</a></td>
+            <td width=50>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width=50><a href="/customer/notice">공지사항</a></td>
+            <td width=50><a href="/customer/qna">질문답변</a></td>
+        </tr>
+    </table>
+    <img src="/main_border.png" style="width: 90%; height: 1%; overflow: hidden;">
+</div>
+    <br><br>
+    <h2 style="color: rgb(228, 216, 55); text-align: center;">질문과 답변</h2>
+    <table class="tab_table">
+        <tr>
+            <td>번호</td>
+            <td>제목</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>조회수</td>
+        </tr>
+        <%
+            for (var i=0; i<row.length; i++){
+                var oneItem = row[i];
+        %>
+        <tr style="cursor:pointer;" onClick="location.href='/customer/qna_detail/<%=oneItem.Qtime%>' "
+            onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
+            <td>
+                <%=i+1%>
+            </td>
+            <td>
+                <%=oneItem.QTitle%>
+            </td>
+            <td>
+
+                <%=oneItem.Rname%>
+            </td>
+            <td>
+                <%=oneItem.Qtime%>
+            </td>
+            <td>
+                <%=oneItem.Qhit%>
+            </td>
+        </tr>
+        <%
+        }
+        %>
+    </table>
+    <br><br>
+    <div class = "top_div">
+        <h3>Q&A 입력</h3>
+    </div>
+    <br><br>
+    <div style="width: 100%; border: black; margin: 0; margin-inline:unset">
+        <form action="/customer/qna_write" method="post" enctype="multipart/form-data" style="align-content: right;">
+            <table class="top_table" style="width: 50%; padding: 25px; border-spacing: 20px">
+                <tr style="border-top: black solid 1px;">
+                    <td>제목</td>
+                    <td style="width:70%">
+                        <input type="text" name="Qtitle" style="width: 100%">
+                    </td>
+                </tr>
+                <tr style="border-top: black solid 1px;">
+                    <td>작성자</td>     
+                    <td>
+                        <%=name%>
+                    </td>
+                </tr>
+                <tr style="border-top: black solid 1px;">
+                    <td>내용</td>
+                    <td>
+                        <textarea name="Question" style="width: 100%; height: 100px"></textarea>
+                    </td>
+                </tr>
+                <tr style="border-top: black solid 1px;">
+                    <td>이미지</td>
+                    <td>
+                        <input type="file" name="Qimage">
+                    </td>
+                </tr>
+                <tr style="border-bottom: black solid 1px;">
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="전송"  style="width: 50%;"> </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
