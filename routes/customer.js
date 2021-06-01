@@ -81,7 +81,7 @@ router.get('/tab', function (req, res, next) {
       "SELECT p.PID as PID, r.rec_RID as RID FROM product_info as p join (SELECT * FROM recommend_info WHERE rec_RID = ?) as r on p.PID = r.rec_PID;";
       connection.query(ProductList_sql, [user_id, user_id], function (err, rows) {
       if (err) console.error("err : " + err);
-      console
+      console.log("내가보고싶은건: ", rows[3]);
       // console.log("rows : " + JSON.stringify(rows))
       res.render('main', {
         title: '단골찬',

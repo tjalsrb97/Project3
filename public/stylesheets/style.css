@@ -42,8 +42,11 @@ a:hover {
   height: 100%;
   margin-bottom: 3px;
   padding: 15px;
-  border-spacing: 10px;
+  border-spacing: 15px;
+}
 
+.empty_div {
+  width: 100%;
 }
 
 .tab_table {
@@ -52,8 +55,8 @@ a:hover {
   font-style: normal;
   width: 100%;
   text-align: center;
-  padding-right: 2%;
-  padding-left: 2%;
+  padding-right: 3%;
+  padding-left: 3%;
   margin: 0px;
   border-spacing: 15px;
 }
@@ -66,6 +69,13 @@ a:hover {
 .tab_noselect {
   color: rgb(185, 122, 86);
   font-weight: normal;
+}
+
+.sel_tr {
+  background-color: white;
+}
+.sel_tr:hover {
+  background-color:rgba(214, 214, 214, 0.455)
 }
 
 .mypage_table {
@@ -211,19 +221,19 @@ li {
 }
 
 #slide li:nth-child(1) {
-  background: url('/gallery1.png') no-repeat 80% 80%;
+  /* background: url('/gallery1.png') no-repeat 80% 80%; */
 }
 
 #slide li:nth-child(2) {
-  background: url('/gallery3.png') no-repeat 80% 80%;
+  /* background: url('/gallery3.png') no-repeat 80% 80%; */
 }
 
 #slide li:nth-child(3) {
-  background: url('/gallery2.png') no-repeat 80% 80%;
+  /* background: url('/gallery2.png') no-repeat 80% 80%; */
 }
 
 #slide li:nth-child(4) {
-  background: url('/gallery4.png') no-repeat 80% 80%;
+  /* background: url('/gallery4.png') no-repeat 80% 80%; */
 }
 
 #slide input {
@@ -269,7 +279,7 @@ li {
 }
 
 #pos1:checked~.pos>label:nth-child(1) {
-  background: rgb(255, 255, 255);
+  background: rgb(255, 207, 207);
 }
 
 #pos2:checked~.pos>label:nth-child(2) {

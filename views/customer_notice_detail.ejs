@@ -4,7 +4,10 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
+
 <body>
     <div>
 
@@ -14,63 +17,67 @@
         <%-header%>
         <% } %>
     </div>
-    
-<div style="text-align: center">
-    <table class="tab_table" style="border-spacing: 5px">
-        <tr>
-            <td width=50><a href="/customer/tab">전체 메뉴</a></td>
-            <td width=50><a href="/customer/tab/1">새우장</a></td>
-            <td width=50><a href="/customer/tab/2">게장</a></td>
-            <td width=50><a href="/customer/tab/3">계란장</a></td>
-            <td width=50><a href="/customer/tab/4">김치</a></td>
-            <td width=50>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td width=50 class="tab_select"><a href="/customer/notice">공지사항</a></td>
-            <td width=50><a href="/customer/qna">질문답변</a></td>
-        </tr>
-    </table>
-    <img src="/main_border.png" style="width: 90%; height: 1%; overflow: hidden;">
-</div>
-    <table border="1">
-        <tr>
-            <td>제목</td>
-            <td>
-                <input type="hidden" name="Ntime" id="Ntime" value="<%=notice.Ntime%>">
-                <%=notice.NTitle%>
-            </td>
-        </tr>
-        <tr>
-            <td>작성자</td>
-            <td>
-                관리자
-            </td>
-        </tr>
-        <tr>
-            <td>작성내용</td>
-            <td>
-                <%=notice.Ntext%>
-            </td>
-        </tr>
-        <tr>
-            <td>작성일</td>
-            <td>
-                <%=notice.Ntime%>
-            </td>
-        </tr>
-        <tr>
-            <td>이미지</td>
-            <td>
-                <% if ((notice.Nimage == '') || (notice.Nimage == null)) { %>
+
+    <div class="empty_div" style="text-align: center; margin-bottom:0">
+        <table class="tab_table" style="border-spacing: 5px">
+            <tr>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab">전체 메뉴</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/1">새우장</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/2">게장</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/3">계란장</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/tab/4">김치</a></td>
+                <td width=50 class="tab_noselect"></td>
+                <td width=50 class="tab_select"><a class="norma" href="/customer/notice">공지사항</a></td>
+                <td width=50 class="tab_noselect"><a class="norma" href="/customer/qna">질문답변</a></td>
+            </tr>
+        </table>
+        <img src="/main_border.png" style="width: 90%; height: 1%; overflow: hidden;">
+    </div>
+    <br><br>
+    <a style="text-decoration: none;" href="/customer/notice"><h3 style="color: rgb(133, 90, 33); text-align: center;">목록으로</h3></a>
+    <div style="margin-left: 10%; width: 100%">
+        <table class="table table-bordered" style="width:80%; text-align: left;">
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="hidden" name="Ntime" id="Ntime" value="<%=notice.Ntime%>">
+                    <%=notice.NTitle%>
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    관리자
+                </td>
+            </tr>
+            <tr>
+                <td>작성내용</td>
+                <td>
+                    <%=notice.Ntext%>
+                </td>
+            </tr>
+            <tr>
+                <td>작성일</td>
+                <td>
+                    <%=notice.Ntime%>
+                </td>
+            </tr>
+            <tr>
+                <td>이미지</td>
+                <td>
+                    <% if ((notice.Nimage == '') || (notice.Nimage == null)) { %>
                     &nbsp;
-                <% } else { %>
-                <img src = '/<%=notice.Nimage%>' width=150>
-                <% } %>
-            </td>
-        </tr>
-        <tr>
-            <td>조회수</td>
-            <td>
-                <%=notice.Nhit%>
-            </td>
-        </tr>
-    </table>
+                    <% } else { %>
+                    <img src='/<%=notice.Nimage%>' width=150>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td>조회수</td>
+                <td>
+                    <%=notice.Nhit%>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
