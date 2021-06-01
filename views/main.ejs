@@ -145,6 +145,7 @@
     {
         var oneItem = rows[0][i];
         var recom = 0;
+        oneItem.Price = oneItem.Price * (100 - oneItem.Salerate) / 100;
         if (i % 3== 0) {
 %>
             <tr>
