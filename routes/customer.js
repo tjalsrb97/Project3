@@ -176,14 +176,20 @@ router.get('/detail/:PID', function (req, res) {
       connection.query(Reviewinfo_sql, [Product_idx], function (err, review) {
         if (err) console.error("err : " + err);
         Saleprice = product[0].Price * (100 - product[0].Salerate) / 100;
-        //console.log(beauty_date_to_str(product[0].Ptime));
+        console.log(review);
+        var score = 0;
+        for (var i=0;i<review.length;i++){
+          score += Number(review[i].Star);
+        }
+        console.log(Math.round(score/review.length));
         res.render('detail', {
           title: "상품 조회",
           product: product[0],
           reviews: review,
           saleprice: Saleprice,
           date: beauty_date_to_str(new Date(product[0].Ptime)),
-          name: req.session.user.name
+          name: req.session.user.name,
+          score: Math.round(score/review.length)
         });
         connection.release();
 
