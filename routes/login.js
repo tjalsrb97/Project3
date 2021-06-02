@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
             else res.send("<script>alert('이미 로그인된 고객님입니다.. 먼저 로그아웃 해주세요');window.location='http://localhost:1001/tab';window.reload(true);</script>");
         }
         else if (req.session.user.Ucase == "1")
-            res.send("<script>alert('이미 로그인된 고객님입니다.. 먼저 로그아웃 해주세요');window.location='http://localhost:1001/admin';window.reload(true);</script>");
+            res.send("<script>alert('이미 로그인된 관리자님입니다.. 먼저 로그아웃 해주세요');window.location='http://localhost:1001/admin';window.reload(true);</script>");
         else {
             delete req.session.user;
             req.session.save(() => {
