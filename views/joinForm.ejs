@@ -1,117 +1,140 @@
 <!DOCTYPE html>
 <html>
+<style>
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .divider-text span {
+        padding: 7px;
+        font-size: 12px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .divider-text:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+        top: 55%;
+        left: 0;
+        z-index: 1;
+    }
+    
+    .btn-facebook {
+        background-color: #405D9D;
+        color: #fff;
+    }
+    
+    .btn-twitter {
+        background-color: #42AEEC;
+        color: #fff;
+    }
+</style>
 
 <head>
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>
         <%= title %>
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+    <a href="/tab" style="margin-left:43.2%;">
+        <img class="mb-4" src="/logo_login.png" alt="" style="margin-left:auto;margin-right:auto">
+    </a>
+
 </head>
 
-<body>
-        <h2>
-            <font color="black">
-                <%= title %>
-            </font>
-        </h2>
-        <form action="/joinForm" method="post" onsubmit="return JOIN_check();">
-            <table>
-                <tr>
-                    <th align="center">
-                        <font color="black">아이디</font>
-                    </th>
-                <tr></tr>
-                <tr>
-                    <td align="center"><input type="text" name="RID" id="RID" size="12" maxLength="12"></td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th align="center">
-                        <font color="black">비밀번호</font>
-                    </th>
-                <tr></tr>
-                <tr>
-                    <td align="center"><input type="password" name="password" id="password" size="12" maxlength="12"></td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th align="center">
-                        <font color="black">비밀번호확인</font>
-                    </th>
-                <tr></tr>
-                <tr>
-                    <td align="center"><input type="password" name="password2" id="password2" size="12" maxlength="12"></td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th align="center">
-                        <font color="black">이름</font>
-                    </th>
-                <tr></tr>
-                <tr></tr>
-                <td align="center"><input type="text" name="Rname" id="Rname" size="10" maxlength="10"></td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th align="center">
-                        <font color="black">주소</font>
-                    </th>
-                <tr></tr>
-                <tr></tr>
-                <td align="center"><input type="text" name="Address" id="Address" size="30" maxlength="50"
-                        style="width:80%;border-radius: 15px;"></td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th align="center">
-                        <font color="black">전화번호</font>
-                    </th>
-                <tr></tr>
-                <tr></tr>
-                <td align="center">
-                    <input type="hidden" name="Phone" id="Phone">
-                    <select name="Phone1" id="Phone1">
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                        <option value="018">018</option>
-                        <option value="019">019</option>
-                    </select>
-                    -
-                    <input type="text" name="Phone2" id="Phone2" size="4" maxlength="4">
-                    -
-                    <input type="text" name="Phone3" id="Phone3" size="4" maxlength="4">
-                </td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <th align="center">
-                        <font color="black">주민번호</font>
-                    </th>
-                <tr></tr>
-                <tr>
-                    <td align="center">
-                        <input type="hidden" name="RRN" id="RRN">
-                        <input type="text" name="RRN1" id="RRN1" size="8" maxlength="8"
-                            style="width:40%;border-radius: 15px;">
-                        <font color="black"> - </font><input type="password" name="RRN2" id="RRN2" size="8"
-                            maxlength="7" style="width:40%;border-radius: 15px;">
-                    </td>
-                </tr>
-                <tr></tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button type="submit" name="submit" value="가입"
-                            style="width:40%;border-radius: 15px;">가입</button>
-                        <button type="button" onclick="location.href='/login'"
-                            style="width:40%;border-radius: 15px;">취소</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+<body style="background-repeat: no-repeat; background-size: 100% 100%;">
+    <div class="container">
+        <hr>
+
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">회원 가입</h4>
+                <p class="text-center">기가 막힌 게장을 체험해 보세요!</p>
+                <form action="/joinForm" method="post" onsubmit="return JOIN_check();">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input name="RID" class="form-control" placeholder="아이디" type="text">
+                    </div>
+                    <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input name="Rname" class="form-control" placeholder="이름" type="text">
+                    </div>
+                    <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                        </div>
+                        <input type="hidden" name="Phone" id="Phone">
+                        <select name="Phone1" id="Phone1">
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                        </select>
+                        <input class="form-control" type="text" name="Phone2" id="Phone2" size="4" maxlength="4">
+                        <input class="form-control" type="text" name="Phone3" id="Phone3" size="4" maxlength="4">
+                    </div>
+                    <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-home"></i> </span>
+                        </div>
+                        <input class="form-control" type="text" name="Address" placeholder="주소" id="Address" size="30" maxlength="50">
+                    </div>
+                    <!-- form-group end.// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" type="password" name="password" id="password" placeholder="비밀번호" size="12" maxlength="12">
+                    </div>
+                    <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" type="password" name="password2" id="password2" placeholder="비밀번호확인" size="12" maxlength="12">
+                    </div>
+                    <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i>😜</i> </span>
+                        </div>
+                        <input class="form-control" type="text" name="RRN" id="RRN" size="8" maxlength="8" placeholder="생년월일">
+                        <input class="form-control" type="password" name="RRN1" id="RRN1" size="7" maxlength="7" placeholder="주민번호뒷자리">
+                    </div>
+                    <!-- form-group// -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> 회원 가입 </button>
+                    </div>
+                    <!-- form-group// -->
+                    <p class="text-center">이미 계정을 갖고 계신가요 ? <a href="/login">Log In</a> </p>
+                </form>
+            </article>
+        </div>
+        <!-- card.// -->
+    </div>
     </center>
     <script>
         function JOIN_check() {
@@ -150,19 +173,17 @@
                 alert(message);
                 return false;
             }
-            if($("#Phone2").val() == "")
-            {
+            if ($("#Phone2").val() == "") {
                 alert("전화번호 두번째 자리를 확인해 주세요");
                 $("#Phone2").focus();
                 return;
             }
-            if($("#Phone3").val() == "")
-            {
+            if ($("#Phone3").val() == "") {
                 alert("전화번호 세번째 자리를 확인해 주세요");
                 $("#Phone3").focus();
                 return;
             }
-            var Phone= $("#Phone1").val() +'-'+ $("#Phone2").val() +'-'+ $("#Phone3").val();
+            var Phone = $("#Phone1").val() + '-' + $("#Phone2").val() + '-' + $("#Phone3").val();
             $("#Phone").val(Phone);
 
             if ($("#RRN1").val().trim() == "") {

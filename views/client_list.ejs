@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <title>
         <%= title %>
     </title>
@@ -96,19 +95,14 @@
                            while (i < length) {
                         var oneItem = clients[j];
                         j++;
-                        if (oneItem.Rname != "비회원") {
+                        if (oneItem.Rname != "비회원" && oneItem.Ucase != 1) {
                 %>
                         <tr style="cursor:pointer;" onClick="location.href='/admin/client_detail/<%=oneItem.RID%>' " onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                             <th scope="row">
                                 <%=i+1%>
                             </th>
                             <td>
-                                <%if(oneItem.Ucase=="0"){%>
-
-                                    구매자
-                                    <%}else{%>
-                                        판매자
-                                        <%}%>
+                                구매자
                             </td>
                             <td>
                                 <%=oneItem.Rname%>
@@ -120,8 +114,8 @@
                                 <%=oneItem.Address%>
                             </td>
                         </tr>
+                        }
                         <% i++;
-                } 
             }%>
                 </tbody>
             </table>
