@@ -177,6 +177,8 @@
             <div class="top_div">
                 <h3 style="color: black;">총 주문 금액</h3>
             </div>
+            <% if (rows[1].length == 0)
+                total = 0; %>
             <%=Number(total).toLocaleString('en')%>원
         </div>
     </div>
