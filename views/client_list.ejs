@@ -79,23 +79,28 @@
                 </thead>
                 <tbody style="text-align: center;">
                     <% var page = page;
-                           var clientlength = 0;
-                           for(var i = 0; i < clients.length; i++) {
-                            var oneItem = clients[i];
-                            if (oneItem.Rname != "비회원") clientlength++;
-                           }
-                           var length = 0;
-                           var array_page = 0;
-                           var array_length = 0;
-                           if (clientlength <= 10) length = clientlength;
-                           else if (clientlength - (page - 1) * 10 < 10) length = clientlength;
-                           else if (clientlength - (page - 1) * 10 >= 10) length = page * 10;
-                           var i = (page-1) * 10;
-                           var j = (page-1) * 10;
-                           while (i < length) {
-                        var oneItem = clients[j];
-                        j++;
-                        if (oneItem.Rname != "비회원" && oneItem.Ucase != 1) {%>
+                    var clientlength = 0;
+                    var newclients = [];
+                    for(var i = 0; i < clients.length; i++) {
+                     var oneItem = clients[i];
+                     if (oneItem.Rname != "비회원" && oneItem.Ucase != 1) {
+                         newclients[clientlength] = oneItem;
+                         clientlength++;
+                     }
+                    }
+                    var length = 0;
+                    var array_page = 0;
+                    var array_length = 0;
+                    if (clientlength <= 10) length = clientlength;
+                    else if (clientlength - (page - 1) * 10 < 10) length = clientlength;
+                    else if (clientlength - (page - 1) * 10 >= 10) length = page * 10;
+                    var i = (page-1) * 10;
+                    var j = (page-1) * 10;
+                    while (i < length) {
+                 var oneItem = newclients[j];
+                 j++;
+                 if (oneItem.Rname != "비회원" && oneItem.Ucase != 1) {
+         %>
 
                         <tr style="cursor:pointer;" onClick="location.href='/admin/client_detail/<%=oneItem.RID%>' " onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                             <th scope="row">
