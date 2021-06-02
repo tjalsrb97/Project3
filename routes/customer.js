@@ -170,7 +170,7 @@ router.get('/detail/:PID', function (req, res) {
   var Saleprice = 0;
   pool.getConnection(function (err, connection) {
     var Productinfo_sql = 'SELECT * FROM product_info where PID=?';
-    var Reviewinfo_sql = 'select reg.Rname, rev.R_RID, rev.R_PID, rev.R_DID, rev.Review, rev.Star, rev.Rtime, rev.Rimage from register_info as reg join review_info as rev on reg.RID = rev.R_RID where rev.R_PID=?';
+    var Reviewinfo_sql = 'select reg.Rname, rev.R_RID, rev.R_PID, rev.R_DID, rev.Review, rev.Star, rev.Rtime, rev.Rimage from register_info as reg join review_info as rev on reg.RID = rev.R_RID where rev.R_PID=? order by rev.Rtime desc';
     connection.query(Productinfo_sql, [Product_idx], function (err, product) {
       if (err) console.error("err : " + err);
       connection.query(Reviewinfo_sql, [Product_idx], function (err, review) {
@@ -292,6 +292,7 @@ router.post('/detail/:PID/review', upload.single('image'), function (req, res, n
   var Star = req.body.Star;
   var Rimage = req.file.filename;
   var Rtime = now;
+  console.log(Rtime);
   if (Star == null) {
     console.log("1");
     res.send("<script>alert('별점을 입력하세요!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "/review' ;window.reload(true);</script>");
@@ -323,7 +324,7 @@ router.get('/detail/:PID/review', function (req, res) {
       if (rows.length != 0) {
         res.render('write_review', {
           title: "리뷰 작성",
-          product_deal: rows[rows.length - 1],
+          product_deal: rows[rows.length - 5],
           date: beauty_date_to_str(new Date(rows[0].Ptime)),
           user_id: user_id,
           name: req.session.user.name
@@ -357,6 +358,7 @@ router.post('/cart/pay', function (req, res) {
   var Arr_Stock = [];
   var Arr_Price = [];
   var Arr_Cash = [];
+  var Arr_Dmoney = [];
   if (req.body.D_PID instanceof Array) {
     console.log("배열이다.");
     Arr_D_PID = D_PID;
@@ -365,6 +367,7 @@ router.post('/cart/pay', function (req, res) {
     Arr_Stock = Stock;
     Arr_Price = Price;
     Arr_Cash = Cash;
+    Arr_Dmoney = Price;
   } else {
     console.log("변수다.");
     Arr_D_PID.push(D_PID);
@@ -373,6 +376,7 @@ router.post('/cart/pay', function (req, res) {
     Arr_Stock.push(Stock);
     Arr_Price.push(Price);
     Arr_Cash.push(Cash);
+    Arr_Dmoney.push(Price);
   }
   //console.log(Arr_Cash);
   // var Arr_Ctime = [];
@@ -398,13 +402,14 @@ router.post('/cart/pay', function (req, res) {
       }
       var Daddress = req.body.Address;
       var Dphone = req.body.Phone;
-      var Dmoney = pay_price;
+      var Dmoney = Arr_Dmoney;
+      console.log(Arr_Dmoney);
       console.log(pay_price);
       Rest_cash = Arr_Cash - pay_price;
       var datas = [];
       console.log(pay_price);
       for (var i = 0; i < Arr_D_PID.length; i++) {
-        datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Dmoney, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
+        datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Dmoney[i], Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
         console.log(datas[i]);
       }
       pool.getConnection(function (err, connection) {

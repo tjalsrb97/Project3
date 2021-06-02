@@ -174,7 +174,7 @@
                                 <div style="font-size: 40px; color: #e9e9e9;">
                                     <strike><%=Number(product_deal.Price).toLocaleString('en')%>원</strike></div>
                                 <div style="font-size: 40px"><strong style="color: red;"><%=product_deal.Salerate%>%</strong>
-                                    <strong><%=Number(100000).toLocaleString('en')%>원</strong></div>
+                                    <strong><%=Number(Number(product_deal.Price) * (100-Number(product_deal.Salerate))/100).toLocaleString('en')%>원</strong></div>
                                 <% } %>
                 </td>
             </tr>

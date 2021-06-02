@@ -26,8 +26,8 @@ router.post('/', function(req, res) {
     var Rname = req.body.Rname;
     var password = req.body.password;
     var Address = req.body.Address;
-    var Phone = req.body.Phone;
-    var RRN = req.body.RRN;
+    var Phone = req.body.Phone1 + '-' + req.body.Phone2 + '-' + req.body.Phone3;
+    var RRN = req.body.RRN + '-' + req.body.RRN1;
     var datas = [RID, Rname, password, Address, Phone, RRN];
     pool.getConnection(function(err, connection) {
         var sqlForInsertRegisterinfo = "insert into register_info(RID, Rname, password, Address, Phone, RRN) values(?,?,?,?,?,?)";
