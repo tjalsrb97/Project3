@@ -164,6 +164,7 @@ router.get('/tab/:page', function (req, res, next) {
 ////////////////////////////////////////////////// watch product detail info ///////////////////////////////////
 router.get('/detail/:PID', function (req, res) {
   var Product_idx = req.params.PID;
+  console.log(req.session.user);
   var user_id = req.session.user.id;
   console.log(user_id);
   var Saleprice = 0;
@@ -175,14 +176,20 @@ router.get('/detail/:PID', function (req, res) {
       connection.query(Reviewinfo_sql, [Product_idx], function (err, review) {
         if (err) console.error("err : " + err);
         Saleprice = product[0].Price * (100 - product[0].Salerate) / 100;
-        //console.log(beauty_date_to_str(product[0].Ptime));
+        console.log(review);
+        var score = 0;
+        for (var i=0;i<review.length;i++){
+          score += Number(review[i].Star);
+        }
+        console.log(Math.round(score/review.length));
         res.render('detail', {
           title: "상품 조회",
           product: product[0],
           reviews: review,
           saleprice: Saleprice,
           date: beauty_date_to_str(new Date(product[0].Ptime)),
-          name: req.session.user.name
+          name: req.session.user.name,
+          score: Math.round(score/review.length)
         });
         connection.release();
 
@@ -246,6 +253,7 @@ router.get('/detail/:PID/buy', function (req, res) {
   var Cart_now = new Date();
   Cart_now = date_to_str(Cart_now);
   var user_id = req.session.user.id;
+  console.log(user_id);
   var Product_idx = req.params.PID;
   var Saleprice = 0;
   pool.getConnection(function (err, connection) {
@@ -282,19 +290,24 @@ router.post('/detail/:PID/review', upload.single('image'), function (req, res, n
   var R_DID = req.body.R_DID;
   var Review = req.body.Review;
   var Star = req.body.Star;
-  console.log(Star);
   var Rimage = req.file.filename;
   var Rtime = now;
-  console.log("리뷰 내용:", req.body);
-  var datas = [R_RID, R_PID, R_DID, Review, Star.length, Rtime, Rimage];
-  pool.getConnection(function (err, connection) {
-    var InsertReview_sql = "insert into review_info(R_RID, R_PID, R_DID, Review, Star, Rtime, Rimage) values(?,?,?,?,?,?,?)";
-    connection.query(InsertReview_sql, datas, function (err, review) {
-      if (err) console.error("err : " + err);
-      //res.redirect('/customer/detail/' + Product_idx);
-      res.send("<script>alert('작성 완료!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "' ;window.reload(true);</script>");
+  if(Star == null){
+    console.log("1");
+    res.send("<script>alert('별점을 입력하세요!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "/review' ;window.reload(true);</script>");
+  }
+  else{
+    console.log("리뷰 내용:", req.body);
+    var datas = [R_RID, R_PID, R_DID, Review, Star.length, Rtime, Rimage];
+    pool.getConnection(function (err, connection) {
+      var InsertReview_sql = "insert into review_info(R_RID, R_PID, R_DID, Review, Star, Rtime, Rimage) values(?,?,?,?,?,?,?)";
+      connection.query(InsertReview_sql, datas, function (err, review) {
+        if (err) console.error("err : " + err);
+        //res.redirect('/customer/detail/' + Product_idx);
+        res.send("<script>alert('작성 완료!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "' ;window.reload(true);</script>");
+      });
     });
-  });
+  }
 });
 
 
@@ -304,19 +317,25 @@ router.get('/detail/:PID/review', function (req, res) {
   pool.getConnection(function (err, connection) {
     if (err) console.error("커넥션 객체 얻어오기 에러 : ", err);
     var ProductandDealinfo_sql = 'select * from product_info as p, deal_info as d where d.P_RID = ? and p.PID = d.D_PID and D_PID = ?';
-    connection.query(ProductandDealinfo_sql, [user_id, Product_idx], function (err, rows) {
-      if (err) console.error(err);
-      console.log(user_id);
-      console.log(rows);
-      res.render('write_review', {
-        title: "리뷰 작성",
-        product_deal: rows[rows.length - 1],
-        date: beauty_date_to_str(new Date(rows[0].Ptime)),
-        user_id: user_id,
-        name: req.session.user.name
+      connection.query(ProductandDealinfo_sql, [user_id, Product_idx], function (err, rows) {
+        if (err) console.error(err);
+        console.log(user_id);
+        console.log(rows);
+        if(rows.length!=0){
+          res.render('write_review', {
+            title: "리뷰 작성",
+            product_deal: rows[rows.length - 1],
+            date: beauty_date_to_str(new Date(rows[0].Ptime)),
+            user_id: user_id,
+            name: req.session.user.name
+          });
+          connection.release();
+        }
+        else{
+          res.send("<script>alert('물품을 구매하셔야 리뷰 작성이 가능합니다!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "';window.reload(true);</script>");
+        }
+        
       });
-      connection.release();
-    });
   });
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -361,53 +380,57 @@ router.post('/cart/pay', function (req, res) {
   // var Arr_Ctime = [];
   console.log(req.body);
 
-  if(req.body.Pay_price != 0){
-    for (var i = 0; i < req.body.D_PID.length; i++) {
-      Arr_Ctime[i] = date_to_str(new Date(Arr_Ctime[i]));
-    }
-    var Arr_DID = [];
-    for (var i = 0; i < req.body.D_PID.length; i++) {
-      Arr_DID[i] = P_RID + "_" + Arr_D_PID[i] + "_" + Arr_Ctime[i];
-    }
-    var Dtime = now;
-    var Dstate = '결제완료';
-    var Rest_cash = 0;
-    var pay_price = 0;
-    for (var i = 0; i < Arr_D_PID.length; i++) {
-      pay_price += Number(Arr_Dquantity[i] * Arr_Price[i]);
-      Arr_Stock[i] = Arr_Stock[i] - Arr_Dquantity[i];
-  
-    }
-    var Daddress = req.body.Address;
-    var Dphone = req.body.Phone;
-    var Dmoney = pay_price;
-    console.log(pay_price);
-    Rest_cash = Arr_Cash - pay_price;
-    var datas = [];
-    console.log(pay_price);
-    for (var i = 0; i < Arr_D_PID.length; i++) {
-      datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Dmoney, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
-      console.log(datas[i]);
-    }
-    pool.getConnection(function (err, connection) {
-      var InsertdealandUpdateCashandDeletecart_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone, Dmoney) values(?,?,?,?,?,?,?,?,?,?);" +
-        "update register_info set cash = ? where RID = ?;" +
-        "delete from cart_info where C_PID=?;" +
-        "update product_info set stock = ? where PID = ?;";
-      for (var i = 0; i < datas.length; i++) {
-        connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function(err, rrr) {
-          console.log(err);
-        });
+  if(Cash - req.body.Pay_price >=0 ){
+    if(req.body.Pay_price != 0){
+      for (var i = 0; i < req.body.D_PID.length; i++) {
+        Arr_Ctime[i] = date_to_str(new Date(Arr_Ctime[i]));
       }
-      //res.redirect('/customer/mypage');
-      res.send("<script>alert('결제 완료!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
-      connection.release();
-    });
+      var Arr_DID = [];
+      for (var i = 0; i < req.body.D_PID.length; i++) {
+        Arr_DID[i] = P_RID + "_" + Arr_D_PID[i] + "_" + Arr_Ctime[i];
+      }
+      var Dtime = now;
+      var Dstate = '결제완료';
+      var Rest_cash = 0;
+      var pay_price = 0;
+      for (var i = 0; i < Arr_D_PID.length; i++) {
+        pay_price += Number(Arr_Dquantity[i] * Arr_Price[i]);
+        Arr_Stock[i] = Arr_Stock[i] - Arr_Dquantity[i];
+    
+      }
+      var Daddress = req.body.Address;
+      var Dphone = req.body.Phone;
+      var Dmoney = pay_price;
+      console.log(pay_price);
+      Rest_cash = Arr_Cash - pay_price;
+      var datas = [];
+      console.log(pay_price);
+      for (var i = 0; i < Arr_D_PID.length; i++) {
+        datas[i] = [Arr_DID[i], P_RID, S_RID, Arr_D_PID[i], Dtime, Arr_Dquantity[i], Dstate, Daddress, Dphone, Dmoney, Number(Rest_cash), user_id, Arr_D_PID[i], Arr_Stock[i], Arr_D_PID[i]];
+        console.log(datas[i]);
+      }
+      pool.getConnection(function (err, connection) {
+        var InsertdealandUpdateCashandDeletecart_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone, Dmoney) values(?,?,?,?,?,?,?,?,?,?);" +
+          "update register_info set cash = ? where RID = ?;" +
+          "delete from cart_info where C_PID=?;" +
+          "update product_info set stock = ? where PID = ?;";
+        for (var i = 0; i < datas.length; i++) {
+          connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function(err, rrr) {
+            console.log(err);
+          });
+        }
+        //res.redirect('/customer/mypage');
+        res.send("<script>alert('결제 완료!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
+        connection.release();
+      });
+    }
+    else{
+      res.send("<script>alert('장바구니 항목이 없습니다!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
+    }
   }
   else{
-    res.send("<script>alert('장바구니 항목이 없습니다!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
+    res.send("<script>alert('돈을 충전하세요!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
   }
-  
 });
 
 router.post('/cart/add', upload.single('image'), function (req, res) {
