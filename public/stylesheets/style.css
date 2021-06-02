@@ -325,3 +325,11 @@ li {
 #pos4:checked~.pos>label:nth-child(4) {
   background: rgb(106, 0, 0);
 }
+
+.empty_td {
+  font-size: 15px;
+}
+
+.empty_tr {
+  border-radius: 5px;
+}
