@@ -95,8 +95,8 @@
                            while (i < length) {
                         var oneItem = clients[j];
                         j++;
-                        if (oneItem.Rname != "비회원" && oneItem.Ucase != 1) {
-                %>
+                        if (oneItem.Rname != "비회원" && oneItem.Ucase != 1) {%>
+
                         <tr style="cursor:pointer;" onClick="location.href='/admin/client_detail/<%=oneItem.RID%>' " onMouseOver=" window.status = '<%=oneItem.RID%>' " onMouseOut=" window.status = '' ">
                             <th scope="row">
                                 <%=i+1%>
@@ -114,9 +114,10 @@
                                 <%=oneItem.Address%>
                             </td>
                         </tr>
-                        }
-                        <% i++;
-            }%>
+
+                        <%     i++;   }
+                         
+                          }%>
                 </tbody>
             </table>
             <!-- 여기에 넣으세요 -->
