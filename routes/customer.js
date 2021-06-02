@@ -71,7 +71,7 @@ router.get('/tab', function (req, res, next) {
     });
   }
   let user_id = req.session.user.id;
-  console.log("user: ", req.session.user.name);
+  console.log("user: ", req.session.user);
 
   pool.getConnection(function (err, connection) {
     var ProductList_sql = "SELECT * FROM product_info as p left join (SELECT SUM(Dquantity) as sum, D_PID FROM deal_info, product_info GROUP BY D_PID) as d on p.PID = d.D_PID ORDER BY sum desc;" +
@@ -129,35 +129,35 @@ router.get('/tab/:page', function (req, res, next) {
       connection.release();
     });
   });
+});
 
-  router.post('/recommend', function (req, res) {
-    var PID = req.body.PID;
-    var opt = req.body.opt;
-    var link = req.body.link;
-    var location = req.body.locatoin;
-    console.log(location);
-    var user_id = req.session.user.id;
-    pool.getConnection(function (err, connection) {
-      if (opt == 0) {
-        var unRecommend_sql = "DELETE FROM recommend_info WHERE rec_PID = ? and rec_RID = ?";
-        var unRecommend_sql2 = "UPDATE product_info SET Recommend = Recommend - 1 WHERE PID = ?";
-        connection.query(unRecommend_sql, [PID, user_id], function (err, row) {
-          connection.query(unRecommend_sql2, [PID]);
-          if (err) console.error("err : " + err);
-          res.send("<script type='text/javascript'>window.location='" + link + "';</script>");
-          //connection.release();
-        });
-      } else {
-        var Recommend_sql = "INSERT INTO recommend_info VALUES(?, ?)";
-        var Recommend_sql2 = "UPDATE product_info SET Recommend = Recommend + 1 WHERE PID = ?";
-        connection.query(Recommend_sql, [user_id, PID], function (err, row) {
-          connection.query(Recommend_sql2, [PID]);
-          if (err) console.error("err : " + err);
-          res.send("<script type='text/javascript'>window.location='" + link + "';</script>");
-          //connection.release();
-        });
-      }
-    });
+router.post('/recommend', function (req, res) {
+  var PID = req.body.PID;
+  var opt = req.body.opt;
+  var link = req.body.link;
+  var location = req.body.locatoin;
+  console.log(location);
+  var user_id = req.session.user.id;
+  pool.getConnection(function (err, connection) {
+    if (opt == 0) {
+      var unRecommend_sql = "DELETE FROM recommend_info WHERE rec_PID = ? and rec_RID = ?";
+      var unRecommend_sql2 = "UPDATE product_info SET Recommend = Recommend - 1 WHERE PID = ?";
+      connection.query(unRecommend_sql, [PID, user_id], function (err, row) {
+        connection.query(unRecommend_sql2, [PID]);
+        if (err) console.error("err : " + err);
+        res.send("<script type='text/javascript'>window.location='" + link + "';</script>");
+        //connection.release();
+      });
+    } else {
+      var Recommend_sql = "INSERT INTO recommend_info VALUES(?, ?)";
+      var Recommend_sql2 = "UPDATE product_info SET Recommend = Recommend + 1 WHERE PID = ?";
+      connection.query(Recommend_sql, [user_id, PID], function (err, row) {
+        connection.query(Recommend_sql2, [PID]);
+        if (err) console.error("err : " + err);
+        res.send("<script type='text/javascript'>window.location='" + link + "';</script>");
+        //connection.release();
+      });
+    }
   });
 });
 
@@ -178,10 +178,10 @@ router.get('/detail/:PID', function (req, res) {
         Saleprice = product[0].Price * (100 - product[0].Salerate) / 100;
         console.log(review);
         var score = 0;
-        for (var i=0;i<review.length;i++){
+        for (var i = 0; i < review.length; i++) {
           score += Number(review[i].Star);
         }
-        console.log(Math.round(score/review.length));
+        console.log(Math.round(score / review.length));
         res.render('detail', {
           title: "상품 조회",
           product: product[0],
@@ -189,7 +189,7 @@ router.get('/detail/:PID', function (req, res) {
           saleprice: Saleprice,
           date: beauty_date_to_str(new Date(product[0].Ptime)),
           name: req.session.user.name,
-          score: Math.round(score/review.length)
+          score: Math.round(score / review.length)
         });
         connection.release();
 
@@ -224,12 +224,12 @@ router.post('/detail/:PID/buy', upload.single('image'), function (req, res) {
   //console.log(Rest_cash);
 
   var datas = [DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, DphoneNum, Dmoney, Number(Rest_cash), user_id, Number(Rest_stock), D_PID];
-  if(Rest_cash >= 0){
-    if(Dquantity > 0){
-      if(Rest_stock >= 0){
+  if (Rest_cash >= 0) {
+    if (Dquantity > 0) {
+      if (Rest_stock >= 0) {
         pool.getConnection(function (err, connection) {
           var InsertdealandUpdateCash_multisql = "insert into deal_info(DID, P_RID, S_RID, D_PID, Dtime, Dquantity, Dstate, Daddress, Dphone, Dmoney) values(?,?,?,?,?,?,?,?,?,?);" +
-            "update register_info set cash = ? where RID = ?;" + 
+            "update register_info set cash = ? where RID = ?;" +
             "update product_info set stock = ? where PID = ?;";
           connection.query(InsertdealandUpdateCash_multisql, datas, function (err, result) {
             if (err) console.error(err);
@@ -292,11 +292,10 @@ router.post('/detail/:PID/review', upload.single('image'), function (req, res, n
   var Star = req.body.Star;
   var Rimage = req.file.filename;
   var Rtime = now;
-  if(Star == null){
+  if (Star == null) {
     console.log("1");
     res.send("<script>alert('별점을 입력하세요!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "/review' ;window.reload(true);</script>");
-  }
-  else{
+  } else {
     console.log("리뷰 내용:", req.body);
     var datas = [R_RID, R_PID, R_DID, Review, Star.length, Rtime, Rimage];
     pool.getConnection(function (err, connection) {
@@ -317,25 +316,24 @@ router.get('/detail/:PID/review', function (req, res) {
   pool.getConnection(function (err, connection) {
     if (err) console.error("커넥션 객체 얻어오기 에러 : ", err);
     var ProductandDealinfo_sql = 'select * from product_info as p, deal_info as d where d.P_RID = ? and p.PID = d.D_PID and D_PID = ?';
-      connection.query(ProductandDealinfo_sql, [user_id, Product_idx], function (err, rows) {
-        if (err) console.error(err);
-        console.log(user_id);
-        console.log(rows);
-        if(rows.length!=0){
-          res.render('write_review', {
-            title: "리뷰 작성",
-            product_deal: rows[rows.length - 1],
-            date: beauty_date_to_str(new Date(rows[0].Ptime)),
-            user_id: user_id,
-            name: req.session.user.name
-          });
-          connection.release();
-        }
-        else{
-          res.send("<script>alert('물품을 구매하셔야 리뷰 작성이 가능합니다!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "';window.reload(true);</script>");
-        }
-        
-      });
+    connection.query(ProductandDealinfo_sql, [user_id, Product_idx], function (err, rows) {
+      if (err) console.error(err);
+      console.log(user_id);
+      console.log(rows);
+      if (rows.length != 0) {
+        res.render('write_review', {
+          title: "리뷰 작성",
+          product_deal: rows[rows.length - 1],
+          date: beauty_date_to_str(new Date(rows[0].Ptime)),
+          user_id: user_id,
+          name: req.session.user.name
+        });
+        connection.release();
+      } else {
+        res.send("<script>alert('물품을 구매하셔야 리뷰 작성이 가능합니다!');window.location='http://localhost:1001/customer/detail/" + Product_idx + "';window.reload(true);</script>");
+      }
+
+    });
   });
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -380,8 +378,8 @@ router.post('/cart/pay', function (req, res) {
   // var Arr_Ctime = [];
   console.log(req.body);
 
-  if(Cash - req.body.Pay_price >=0 ){
-    if(req.body.Pay_price != 0){
+  if (Cash - req.body.Pay_price >= 0) {
+    if (req.body.Pay_price != 0) {
       for (var i = 0; i < req.body.D_PID.length; i++) {
         Arr_Ctime[i] = date_to_str(new Date(Arr_Ctime[i]));
       }
@@ -396,7 +394,7 @@ router.post('/cart/pay', function (req, res) {
       for (var i = 0; i < Arr_D_PID.length; i++) {
         pay_price += Number(Arr_Dquantity[i] * Arr_Price[i]);
         Arr_Stock[i] = Arr_Stock[i] - Arr_Dquantity[i];
-    
+
       }
       var Daddress = req.body.Address;
       var Dphone = req.body.Phone;
@@ -415,7 +413,7 @@ router.post('/cart/pay', function (req, res) {
           "delete from cart_info where C_PID=?;" +
           "update product_info set stock = ? where PID = ?;";
         for (var i = 0; i < datas.length; i++) {
-          connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function(err, rrr) {
+          connection.query(InsertdealandUpdateCashandDeletecart_multisql, datas[i], function (err, rrr) {
             console.log(err);
           });
         }
@@ -423,12 +421,10 @@ router.post('/cart/pay', function (req, res) {
         res.send("<script>alert('결제 완료!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
         connection.release();
       });
-    }
-    else{
+    } else {
       res.send("<script>alert('장바구니 항목이 없습니다!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
     }
-  }
-  else{
+  } else {
     res.send("<script>alert('돈을 충전하세요!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
   }
 });
@@ -636,11 +632,9 @@ router.post('/register_edit', function (req, res, next) {
     connection.query(checkPassword_sql, [user_id], function (err, passcheck) {
       if (passcheck[0].password != password_now) {
         res.send("<script type='text/javascript'>alert('비밀번호가 일치하지 않습니다!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
-      }
-      else if (password.length == 0) {
+      } else if (password.length == 0) {
         res.send("<script type='text/javascript'>alert('비밀번호 좀 입력하세요!');window.location='http://localhost:1001/customer/mypage';window.reload(true);</script>");
-      }
-      else {
+      } else {
         var registerEdit_sql = 'UPDATE register_info SET Rname=?, password=?, Address=?, Phone=? WHERE RID = ?';
         connection.query(registerEdit_sql, [Rname, password, Address, Phone, user_id], function (err, result) {
           if (err) console.error("err : " + err);
